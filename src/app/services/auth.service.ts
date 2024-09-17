@@ -1,0 +1,61 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { jwtDecode } from "jwt-decode";
+
+@Injectable({
+  providedIn: 'root'
+})export class AuthService {
+
+  private apiUrl = 'https://localhost:7038/api/auth/login';
+
+  constructor(private http: HttpClient) { }
+
+  login(email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify({ email, password });
+    return this.http.post(this.apiUrl, body, { headers });
+  }
+
+  saveTokenUser(token: string): void {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('authToken', token);
+    }
+  }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('authToken');
+    }
+    return null;
+  }
+
+  getRoleFromToken(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.role;
+    }
+    return null;
+  }
+
+  isAdmin(): boolean {
+    const role = this.getRoleFromToken();
+    return role === 'Admin';
+  }
+
+  isUser(): boolean {
+    const role = this.getRoleFromToken();
+    return role === 'User';
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
+
+  logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('authToken');
+    }
+  }
+}

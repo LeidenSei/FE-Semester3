@@ -2,13 +2,12 @@ import { DashboardOrderInvoiceComponent } from './../components/dashboard-order-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterviewUserComponent } from '../sections/masterview-user/masterview-user.component';
-
 import { ShopComponent } from '../components/shop/shop.component';
 import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { ShopDetailComponent } from '../components/shop-detail/shop-detail.component';
 import { SignInComponent } from '../components/sign-in/sign-in.component';
 import { SignUpComponent } from '../components/sign-up/sign-up.component';
-import { HomeUserComponent } from '../compoents/home-user/home-user.component';
+import { HomeUserComponent } from '../components/home-user/home-user.component';
 import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
 import { OrderTrackingComponent } from '../components/order-tracking/order-tracking.component';
 import { ErrorComponent } from '../components/error/error.component';
@@ -23,6 +22,7 @@ import { ContactComponent } from '../components/contact/contact.component';
 import { CartComponent } from '../components/cart/cart.component';
 import { BlogsComponent } from '../components/blogs/blogs.component';
 import { BlogsDetailComponent } from '../components/blogs-detail/blogs-detail.component';
+import { LoginAdminComponent } from '../../login-admin/login-admin.component';
 
 const routes: Routes = [
   { path: '', component: MasterviewUserComponent, children: [
@@ -49,7 +49,7 @@ const routes: Routes = [
     { path: 'dashboard-wishlist', component:DashboardWishlistComponent},
     { path: 'dashboard-change-password', component:DashboardChangePasswordComponent},
     { path: 'dashboard-order-invoice', component:DashboardOrderInvoiceComponent}
-  ]}
+  ]},
 ];
 
 @NgModule({

@@ -31,7 +31,10 @@ import { MasterviewAdminComponent } from './components/masterview-admin/mastervi
 import { HeaderUserComponent } from './user/sections/header-user/header-user.component';
 import { FooterUserComponent } from './user/sections/footer-user/footer-user.component';
 import { MasterviewUserComponent } from './user/sections/masterview-user/masterview-user.component';
-import { HomeUserComponent } from './user/compoents/home-user/home-user.component';
+import { HomeUserComponent } from './user/components/home-user/home-user.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -65,14 +68,17 @@ import { HomeUserComponent } from './user/compoents/home-user/home-user.componen
     HeaderUserComponent,
     FooterUserComponent,
     MasterviewUserComponent,
-    HomeUserComponent
+    HomeUserComponent,
+    LoginAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
