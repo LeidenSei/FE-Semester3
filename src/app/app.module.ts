@@ -33,8 +33,23 @@ import { FooterUserComponent } from './user/sections/footer-user/footer-user.com
 import { MasterviewUserComponent } from './user/sections/masterview-user/masterview-user.component';
 import { HomeUserComponent } from './user/components/home-user/home-user.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { AddProductComponent } from './components/product/add-product/add-product.component';
+import { EditProductComponent } from './components/product/edit-product/edit-product.component';
+import { OptionProductComponent } from './components/option-product/option-product.component';
+import { AddOptionProductComponent } from './components/option-product/add-option-product/add-option-product.component';
+import { EditOptionProductComponent } from './components/option-product/edit-option-product/edit-option-product.component';
+import { AttributeProductComponent } from './components/attribute-product/attribute-product.component';
+import { AddAttributeProductComponent } from './components/attribute-product/add-attribute-product/add-attribute-product.component';
+import { EditAttributeProductComponent } from './components/attribute-product/edit-attribute-product/edit-attribute-product.component';
+import { PostCategoryComponent } from './components/post-category/post-category.component';
+import { AddPostCategoryComponent } from './components/post-category/add-category-post/add-category-post.component';
+import { EditPostCategoryComponent } from './components/post-category/edit-category-post/edit-category-post.component';
+// import { AddCategoryPostComponent } from './components/category-post/add-category-post/add-category-post.component';
+// import { EditCategoryPostComponent } from './components/category-post/edit-category-post/edit-category-post.component';
 
 @NgModule({
   declarations: [
@@ -69,12 +84,26 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     FooterUserComponent,
     MasterviewUserComponent,
     HomeUserComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
+    AddProductComponent,
+    EditProductComponent,
+    OptionProductComponent,
+    AddOptionProductComponent,
+    EditOptionProductComponent,
+    AttributeProductComponent,
+    AddAttributeProductComponent,
+    EditAttributeProductComponent,
+    PostCategoryComponent,
+    AddPostCategoryComponent,
+    EditPostCategoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [
     provideClientHydration(),

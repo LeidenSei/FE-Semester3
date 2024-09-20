@@ -67,11 +67,6 @@
                             <span class="sub-item">Category List</span>
                           </a>
                         </li>
-                        <li>
-                          <a [routerLink]="['/admin/category']">
-                            <span class="sub-item">Add Category</span>
-                          </a>
-                        </li>
                       </ul>
                     </div>
                   </li>
@@ -96,9 +91,30 @@
                     </div>
                   </li>
                   <li>
-                    <a href="#">
-                      <span class="sub-item">Level 1</span>
+                    <a data-bs-toggle="collapse" [routerLink]="['/admin/category-post']">
+                      <span class="sub-item">Category post</span>
+                      <span class="caret"></span>
                     </a>
+                  </li>
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav3">
+                      <span class="sub-item">Atrribute and Option Product</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav3">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/attribute']">
+                            <span class="sub-item">Attribute</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/option']">
+                            <span class="sub-item">Option</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </li>
                 </ul>
               </div>

@@ -13,9 +13,8 @@ export class LoginAdminComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onLogin() {
-    console.log(this.LoginModel.email);
-    
+  async onLogin() {
+    await this.authService.logout(); 
     this.authService.login(this.LoginModel.email, this.LoginModel.password).subscribe(
       (response) => {
         if (response.success) {

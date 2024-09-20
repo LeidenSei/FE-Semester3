@@ -33,10 +33,20 @@ import { jwtDecode } from "jwt-decode";
   getRoleFromToken(): string | null {
     const token = this.getToken();
     if (token) {
+      if (this.isTokenExpired(token)) {
+        this.logout(); 
+        return null;
+      }
+
       const decodedToken: any = jwtDecode(token);
       return decodedToken.role;
     }
     return null;
+  }
+  isTokenExpired(token: string): boolean {
+    const decodedToken: any = jwtDecode(token);
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
   }
 
   isAdmin(): boolean {
