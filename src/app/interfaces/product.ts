@@ -1,10 +1,11 @@
 export interface Product {
-    id?: number;
+    id?: number|any;
     productName: string;
     price: number;
     salePrice: number;
     active: boolean;
     image: File | null;
+    imageUrl?: string;
     description: string;
     categoryId: number;
     album: File[];

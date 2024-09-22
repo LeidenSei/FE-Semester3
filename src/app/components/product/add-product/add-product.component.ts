@@ -4,8 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AttributeOptionService } from '../../../services/attribute-option.service';
 import { AttributeService } from '../../../services/attribute.service';
 import { ProductService } from '../../../services/product.service';
-import { isPlatformBrowser } from '@angular/common';
-
+import { AttributeOption } from '../../../interfaces/attribute-option';
 
 @Component({
   selector: 'app-add-product',
@@ -14,20 +13,21 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AddProductComponent implements OnInit {
   public Editor: any;
+  public isBrowser: boolean | undefined;
   productForm: FormGroup;
   categories: any[] = [];
   attributes: any[] = [];
   attributeOptions: any[][] = [];
   selectedImage: File | null = null;
   selectedAlbum: File[] = [];
-
+  imagePreview: any;
+  albumPreviews: string[] = [];
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
     private attributeService: AttributeService,
     private categoryService: CategoryService,
     private attributeOptionService: AttributeOptionService,
-    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.productForm = this.fb.group({
       ProductName: ['', Validators.required],
@@ -44,10 +44,22 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.loadCategories();
     this.loadAttributes();
   }
-
+  ngAfterViewInit(): void {
+    const descriptionElement = document.getElementById('description');
+    if (descriptionElement && typeof (window as any)['CKEDITOR'] !== 'undefined') {
+      const editor = (window as any)['CKEDITOR'].replace(descriptionElement);
+      editor.on('change', () => {
+        const data = editor.getData();
+        this.productForm.controls['Description'].setValue(data);
+      });
+    } else {
+      console.error('CKEditor chưa được tải đúng cách hoặc không tìm thấy phần tử.');
+    }
+  }
   get attributeArray(): FormArray {
     return this.productForm.get('Attributes') as FormArray;
   }
@@ -57,19 +69,45 @@ export class AddProductComponent implements OnInit {
       AttributeId: ['', Validators.required],
       OptionId: ['', Validators.required],
     });
+  
+    attributeGroup.get('AttributeId')?.valueChanges.subscribe(attributeId => {
+      if (attributeId) { // Kiểm tra nếu attributeId không phải là null
+        const index = this.attributeArray.length - 1;
+        this.loadAttributeOptions(attributeId, index);
+      }
+    });
+  
     this.attributeArray.push(attributeGroup);
+  }
+  
+  onImageSelect(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview = e.target?.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onAlbumSelect(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files) {
+      this.albumPreviews = [];
+      Array.from(fileInput.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.albumPreviews.push(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
   }
 
   removeAttribute(index: number) {
     this.attributeArray.removeAt(index);
-  }
-
-  onImageSelect(event: any) {
-    this.selectedImage = event.target.files[0];
-  }
-
-  onAlbumSelect(event: any) {
-    this.selectedAlbum = Array.from(event.target.files);
   }
 
   loadCategories() {
@@ -91,13 +129,19 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  loadAttributeOptions(attributeId: number, index: number) {
-    this.attributeOptionService.searchAttributeOptions({ AttributeId: attributeId }).subscribe(options => {
-      this.attributeOptions[index] = options.data;
-    });
+  loadAttributeOptions(attributeId: string, index: number) {
+    this.attributeOptionService.getAttributeOptionByAttributeId(attributeId).subscribe(
+      (options: AttributeOption[]) => { 
+        this.attributeOptions[index] = options;
+      },
+      error => {
+        console.error('Có lỗi xảy ra khi tải tùy chọn thuộc tính:', error);
+      }
+    );
   }
+  
 
-  onSubmit() {
+  async onSubmit() {
     const formData = new FormData();
   
     formData.append('ProductName', this.productForm.get('ProductName')?.value);
@@ -118,11 +162,13 @@ export class AddProductComponent implements OnInit {
     const attributes = this.productForm.get('Attributes')?.value;
     formData.append('Attributes', JSON.stringify(attributes));
   
-    this.productService.saveProduct(formData).subscribe(response => {
-      console.log('Product added successfully', response);
-    }, error => {
+    try {
+      const response = await this.productService.saveProduct(formData).toPromise();
+      alert('Product added successfully');
+    } catch (error) {
       console.error('Error adding product', error);
-    });
+    }
   }
+  
   
 }

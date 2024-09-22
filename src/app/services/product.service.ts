@@ -24,11 +24,12 @@ export class ProductService {
     });
   }
 
-  getProductById(id: number): Observable<Product> {
+  getProductById(id: any): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
+
   saveProduct(formData: FormData, id?: number): Observable<any> {
     if (id) {
       return this.http.put<any>(`${this.apiUrl}/${id}`, formData, {
@@ -40,7 +41,6 @@ export class ProductService {
       });
     }
   }
-  
 
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`, {

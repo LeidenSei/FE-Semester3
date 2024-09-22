@@ -37,6 +37,13 @@ export class AttributeOptionService {
     const headers = this.getAuthHeaders();
     return this.http.get<AttributeOption>(`${this.apiUrl}/${id}`, { headers });
   }
+  getAttributeOptionByAttributeId(attributeId: string): Observable<AttributeOption[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<AttributeOption[]>(`${this.apiUrl}/getbyattribute/${attributeId}`, { headers });
+  }
+  
+  
+  
 
   searchAttributeOptions(searchParams: any): Observable<any> {
     const headers = this.getAuthHeaders();

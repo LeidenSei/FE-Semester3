@@ -7,6 +7,6 @@ export interface SearchParams {
     sortDir: string;
     toPrice: number;
     fromPrice: number;
-    categoryId: number;
+    categoryId: any;
     optionIds: number[];
   }

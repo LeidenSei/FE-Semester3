@@ -49,7 +49,7 @@ import { PostCategoryComponent } from './components/post-category/post-category.
 import { AddPostCategoryComponent } from './components/post-category/add-category-post/add-category-post.component';
 import { EditPostCategoryComponent } from './components/post-category/edit-category-post/edit-category-post.component';
 import { ListProductComponent } from './components/product/list-product/list-product.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 @NgModule({
   declarations: [
