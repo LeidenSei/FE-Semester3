@@ -35,7 +35,7 @@ export class PostCategoryComponent {
     this.postCategoryService.searchPostCategories(searchParams).subscribe(
       response => {
         this.postCategories = response.data; 
-        this.totalRecords = this.postCategories.length;
+        this.totalRecords = response.totalRecords; // Lấy từ API
       },
       error => {
         console.error('Error loading post categories', error);

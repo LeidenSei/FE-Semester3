@@ -48,8 +48,8 @@ import { EditAttributeProductComponent } from './components/attribute-product/ed
 import { PostCategoryComponent } from './components/post-category/post-category.component';
 import { AddPostCategoryComponent } from './components/post-category/add-category-post/add-category-post.component';
 import { EditPostCategoryComponent } from './components/post-category/edit-category-post/edit-category-post.component';
-// import { AddCategoryPostComponent } from './components/category-post/add-category-post/add-category-post.component';
-// import { EditCategoryPostComponent } from './components/category-post/edit-category-post/edit-category-post.component';
+import { ListProductComponent } from './components/product/list-product/list-product.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -97,13 +97,14 @@ import { EditPostCategoryComponent } from './components/post-category/edit-categ
     EditAttributeProductComponent,
     PostCategoryComponent,
     AddPostCategoryComponent,
-    EditPostCategoryComponent
+    EditPostCategoryComponent,
+    ListProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),

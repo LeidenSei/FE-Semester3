@@ -16,6 +16,9 @@ import { AddOptionProductComponent } from '../option-product/add-option-product/
 import { PostCategoryComponent } from '../post-category/post-category.component';
 import { AddPostCategoryComponent } from '../post-category/add-category-post/add-category-post.component';
 import { EditPostCategoryComponent } from '../post-category/edit-category-post/edit-category-post.component';
+import { ListProductComponent } from '../product/list-product/list-product.component';
+import { AddProductComponent } from '../product/add-product/add-product.component';
+import { EditProductComponent } from '../product/edit-product/edit-product.component';
 
 const routes: Routes = [
   { path: '', component: MasterviewAdminComponent, children: [
@@ -24,7 +27,11 @@ const routes: Routes = [
       { path: '', component: AddCategoryComponent},
       { path: 'edit/:id', component: EditCategoryComponent }
     ]},
-    { path: 'product', component: ProductComponent},
+    { path: 'product', component: ProductComponent, children: [
+      { path: '', component:ListProductComponent},
+      { path: 'add', component: AddProductComponent},
+      { path: 'edit/:id', component: EditProductComponent}
+    ]},
     { path: 'attribute', component:AttributeProductComponent, children: [
       { path: '', component:AddAttributeProductComponent},
       { path: 'edit/:id', component: EditAttributeProductComponent }
