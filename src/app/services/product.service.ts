@@ -23,6 +23,10 @@ export class ProductService {
       headers: this.getAuthHeaders()
     });
   }
+  getList(searchParams: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Accept': 'application/json'});
+    return this.http.post<any>(`${this.apiUrl}/list-product`, searchParams,{ headers })
+  }
 
   getProductById(id: any): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`, {

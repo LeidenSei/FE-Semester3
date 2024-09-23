@@ -1,0 +1,39 @@
+<section class="new_products pt_115 xs_pt_75">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 m-auto wow fadeInUp">
+                <div class="section_heading mb_20">
+                    <h4>Checkout New Products</h4>
+                    <h2>Today’s new hotest products available now</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp"  *ngFor="let product of products">
+                <div class="single_product_2 single_product">
+                    <div class="single_product_img">
+                        <img src="assets/package-user/images/home2_product_img_1.jpg" alt="Product" class="img_fluid w-100">
+                        <ul>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#cart_popup_modal"><i
+                                        class="far fa-shopping-basket"></i></a></li>
+                            <li><a href="#"><i class="far fa-eye"></i></a></li>
+                            <li><a href="#"><i class="far fa-heart"></i></a></li>
+                        </ul>
+                       
+                    </div>
+                    <div class="single_product_text">
+                        <span class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <a class="title" href="shop_details.html">Lemon Meat Bone</a>
+                        <p>${{product.price}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

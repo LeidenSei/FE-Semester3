@@ -38,49 +38,28 @@
             <div class="col-xxl-5 col-md-10 col-lg-7 col-xl-6 wow fadeInRight">
                 <div class="sign_in_form">
                     <h3>Sign In Your Account 👋</h3>
-                    <form>
-                        <input type="email" placeholder="Enter email address">
-                        <input type="password" placeholder="Password">
-                        <div class="forgot">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Remeber Me
-                                </label>
-                            </div>
-                            <a href="forgot_password.html">Forgot Password ?</a>
-                        </div>
+                    <form [formGroup]="signInModuleForm" (ngSubmit)="onSubmit()">
+                        <input type="email" formControlName="email" placeholder="Enter email address">
+                        <div *ngIf="signInModuleForm.get('email')?.invalid && signInModuleForm.get('email')?.touched" class="text-danger">
+                            <div *ngIf="signInModuleForm.get('email')?.hasError('required')"  class="text-danger">Email is required</div>
+                            <div *ngIf="signInModuleForm.get('email')?.hasError('email')"  class="text-danger">Invalid email format</div>
+                      
+                          </div>
+                       
+                        <input type="password" formControlName="password" placeholder="Password">
+                        <div *ngIf="signInModuleForm.get('password')?.invalid && signInModuleForm.get('password')?.touched" class="text-danger">
+                            Password is required
+                          </div>
                         <button type="submit" class="common_btn">Sign In<span></span></button>
                     </form>
 
-                    <p class="dont_account">Don’t have an account? <a href="sign_up.html">Sign Up</a></p>
-                    <p class="or">or</p>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/google_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Google
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/fb_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Facebook
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/twitter_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Twitter
-                            </a>
-                        </li>
-                    </ul>
+                    <p class="dont_account">Don’t have an account?
+                        <a [routerLink]="['/sign-up']" 
+                        >
+                          Sign Up
+                        </a>
+                    </p>
+                   
                 </div>
             </div>
         </div>
