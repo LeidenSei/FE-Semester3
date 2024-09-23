@@ -38,42 +38,35 @@
             <div class="col-xxl-5 col-md-10 col-lg-7 col-xl-6 wow fadeInRight">
                 <div class="sign_in_form">
                     <h3>Sign Up to Continue 👋</h3>
-                    <form>
-                        <input type="text" placeholder="Enter name">
-                        <input type="email" placeholder="Enter email address">
-                        <input type="password" placeholder="Password">
-                        <input type="password" placeholder="Confirm password">
+                     <form [formGroup]="signUpModuleForm"  (ngSubmit)="onSubmit()" >
+                        <input type="text" formControlName="username" placeholder="Enter name">
+                        <div *ngIf="signUpModuleForm.get('username')?.invalid && signUpModuleForm.get('username')?.touched" class="text-danger">
+                            Username is required
+                          </div>
+                        <input type="email" formControlName="email" placeholder="Enter email address">
+                        <div *ngIf="signUpModuleForm.get('email')?.invalid && signUpModuleForm.get('email')?.touched" class="text-danger">
+                        <div *ngIf="signUpModuleForm.get('email')?.hasError('required')">Email is required</div>
+                            <div *ngIf="signUpModuleForm.get('email')?.hasError('email')">Invalid email format</div>
+                          </div>
+                        <input type="password" formControlName="password" placeholder="Password">
+                        <div *ngIf="signUpModuleForm.get('password')?.invalid && signUpModuleForm.get('password')?.touched" class="text-danger">
+                            Password is required
+                          </div>
+                        <input type="password" formControlName="confirm_password" placeholder="Confirm password">
+                        <div *ngIf="signUpModuleForm.get('confirm_password')?.invalid && signUpModuleForm.get('confirm_password')?.touched" class="text-danger">
+                            <div *ngIf="signUpModuleForm.get('confirm_password')?.hasError('required')">Confirm Password is required</div>
+                            <div *ngIf="signUpModuleForm.get('confirm_password')?.hasError('passwordMismatch')">Passwords do not match</div>
+                          </div>
                         <button type="submit" class="common_btn">Sign Up<span></span></button>
-                    </form>
-
-                    <p class="dont_account">Already have an account? <a href="sign_in.html">Sign In</a></p>
-                    <p class="or">or</p>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/google_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Google
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/fb_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Facebook
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <img src="assets/package-user/images/twitter_logo.png" alt="google" class="img-fluid w-100">
-                                </span>
-                                Twitter
-                            </a>
-                        </li>
-                    </ul>
+                    </form> -
+                   
+                    <p class="dont_account">Already have an account?
+                        <a [routerLink]="['/sign-in']" 
+                      >
+                        Sign In
+                      </a>
+                    </p>
+                   
                 </div>
             </div>
         </div>

@@ -49,6 +49,7 @@ import { PostCategoryComponent } from './components/post-category/post-category.
 import { AddPostCategoryComponent } from './components/post-category/add-category-post/add-category-post.component';
 import { EditPostCategoryComponent } from './components/post-category/edit-category-post/edit-category-post.component';
 import { ListProductComponent } from './components/product/list-product/list-product.component';
+import { HomeDataComponent } from './user/components/home-data/home-data.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { ListProductComponent } from './components/product/list-product/list-pro
     PostCategoryComponent,
     AddPostCategoryComponent,
     EditPostCategoryComponent,
-    ListProductComponent
+    ListProductComponent,
+    HomeDataComponent
   ],
   imports: [
     BrowserModule,

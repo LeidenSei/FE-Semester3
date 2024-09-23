@@ -14,12 +14,20 @@
                 </ul>
             </div>
             <div class="col-lg-4 col-md-3">
-                <ul class="topbar_icon d-flex flex-wrap">
-                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fab fa-behance"></i></a></li>
-                </ul>
+
+                  <ul class="topbar_icon d-flex flex-wrap" *ngIf="userName!=null; else elseBlock">
+                    Hi {{userName}} 
+                </ul> 
+              
+                  <ng-template #elseBlock>
+                    <ul class="topbar_icon d-flex flex-wrap" >
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                    </ul> 
+                  </ng-template>
+             
             </div>
         </div>
     </div>
@@ -37,7 +45,7 @@
         <div class="row align-items-center">
             <div class="col-lg-3">
                 <div class="header_logo_area">
-                    <a href="index_2.html" class="header_logo">
+                    <a [routerLink]="['/']" class="header_logo">
                         <img src="assets/package-user/images/logo.png" alt="Freshmat" class="img-fluid w-100">
                     </a>
                     <div class="mobile_menu_icon d-block d-lg-none" data-bs-toggle="offcanvas"
@@ -880,7 +888,8 @@
                                 aria-controls="offcanvasRight"><i class="far fa-shopping-basket"></i> <span>2</span></a>
                         </li>
                         <li><a href="dashboard-wishlist"><i class="far fa-heart"></i> <span>5</span></a></li>
-                        <li><a href="dashboard"><i class="far fa-user"></i></a></li>
+                    
+                        <li *ngIf="userName"><a href="dashboard"><i class="far fa-user"></i></a></li>
                     </ul>
                 </div>
             </div>
