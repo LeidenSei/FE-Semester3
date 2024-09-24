@@ -11,15 +11,19 @@ export class CategoryService {
   checkCategoryNameExists(value: any) {
       throw new Error('Method not implemented.');
   }
-
-  private apiUrl = 'https://localhost:7038/api/category';
+  private apiUrl = 'http://localhost:7038/api/category';
   constructor(private http: HttpClient, private authService:AuthService) {}
-
+  getAllCategories(): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/all');
+  }
   private getAuthHeaders() {
     const token = this.authService.getToken(); 
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
-  
+  searchCategories(searchParams: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<any>(`${this.apiUrl}/search`, searchParams, { headers });
+  }
   addCategory(category: Category): Observable<Category> {
     const headers = this.getAuthHeaders();
     return this.http.post<Category>(this.apiUrl, category, { headers });
@@ -39,10 +43,7 @@ export class CategoryService {
     return this.http.get<Category>(`${this.apiUrl}/${id}`, { headers });
   }
   
-  searchCategories(searchParams: any): Observable<any> {
-    const headers = this.getAuthHeaders();
-    return this.http.post<any>(`${this.apiUrl}/search`, searchParams, { headers });
-  }
+
   checkNameExists(name: string): Observable<boolean> {
     const headers = this.getAuthHeaders();
     return this.http.get<boolean>(`${this.apiUrl}/checkNameExists?name=${name}`, { headers });

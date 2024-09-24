@@ -10,7 +10,7 @@ import { Attribute } from '../interfaces/attribute';
 })
 export class AttributeService {
 
-  private apiUrl = 'https://localhost:7038/api/attribute';
+  private apiUrl = 'http://localhost:7038/api/attribute';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
   providedIn: 'root'
 })export class AuthService {
 
-  private apiUrl = 'https://localhost:7038/api/auth/login';
+  private apiUrl = 'http://localhost:7038/api/auth/login';
 
   constructor(private http: HttpClient) { }
 

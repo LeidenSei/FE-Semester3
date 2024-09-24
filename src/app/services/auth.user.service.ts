@@ -8,7 +8,7 @@ import { RegisterUser } from '../interfaces/register-user';
   providedIn: 'root'
 })export class AuthUserService {
 
-  private apiUrl = 'https://localhost:7038/api/auth/';
+  private apiUrl = 'http://localhost:7038/api/auth/';
   private currentUserSubject = new BehaviorSubject<any | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 

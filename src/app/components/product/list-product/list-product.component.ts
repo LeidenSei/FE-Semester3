@@ -42,7 +42,7 @@ export class ListProductComponent implements OnInit{
       this.products = response.data.map((product: Product) => {
         return {
           ...product,
-          imageUrl: `https://localhost:7038/images/${product.image}`
+          imageUrl: `http://localhost:7038/images/${product.image}`
         };
       });
       this.totalRecords = response.totalRecords;

@@ -9,7 +9,7 @@ import { SearchParams } from './search-params';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://localhost:7038/api/product';
+  private apiUrl = 'http://localhost:7038/api/product';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -23,11 +23,11 @@ export class ProductService {
       headers: this.getAuthHeaders()
     });
   }
-  getList(searchParams: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Accept': 'application/json'});
-    return this.http.post<any>(`${this.apiUrl}/list-product`, searchParams,{ headers })
+  getListProducts(searchParams: SearchParams): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/list-product`, searchParams, {
+      headers: this.getAuthHeaders()
+    });
   }
-
   getProductById(id: any): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`, {
       headers: this.getAuthHeaders()

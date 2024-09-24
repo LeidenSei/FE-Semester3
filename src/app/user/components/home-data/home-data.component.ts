@@ -18,24 +18,24 @@ export class HomeDataComponent {
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.loadProducts();
-  }
+  // ngOnInit() {
+  //   this.loadProducts();
+  // }
 
-  loadProducts() {
-    const searchParams = {
-      pageNumber: this.currentPage,
-      pageSize: this.pageSize,
-      keyword: this.searchKeyword,
-      status: this.statusFilter
-    };
-    this.productService.getList(searchParams).subscribe(response => {
-      console.log(response)
-      this.products = response.data;
-    //  this.totalRecords = response.totalRecords;
-    }, error => {
-      console.error('Error loading products', error);
-    });
-  }
+  // loadProducts() {
+  //   const searchParams = {
+  //     pageNumber: this.currentPage,
+  //     pageSize: this.pageSize,
+  //     keyword: this.searchKeyword,
+  //     status: this.statusFilter
+  //   };
+  //   this.productService.getList(searchParams).subscribe(response => {
+  //     console.log(response)
+  //     this.products = response.data;
+  //   //  this.totalRecords = response.totalRecords;
+  //   }, error => {
+  //     console.error('Error loading products', error);
+  //   });
+  // }
   
 }

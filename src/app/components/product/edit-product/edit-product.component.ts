@@ -66,7 +66,7 @@ export class EditProductComponent implements OnInit {
         }
   
         if (Array.isArray(product.album)) {
-          this.albumPreviews = product.album.map(image => 'https://localhost:7038/images/' + image);
+          this.albumPreviews = product.album.map(image => 'http://localhost:7038/images/' + image);
         } else {
           this.albumPreviews = [];
         }

@@ -10,6 +10,7 @@ export interface Product {
     categoryId: number;
     album: File[];
     attributes: Attribute[];
+    categoryName?: string;
   }
   
   export interface Attribute {

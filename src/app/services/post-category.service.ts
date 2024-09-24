@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class PostCategoryService {
-  private apiUrl = 'https://localhost:7038/api/postcategory';
+  private apiUrl = 'http://localhost:7038/api/postcategory';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

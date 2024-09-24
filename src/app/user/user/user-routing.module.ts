@@ -32,7 +32,6 @@ const routes: Routes = [
     { path: 'shop-detail', component: ShopDetailComponent },
     { path: 'privacy', component:PrivacyPolicyComponent},
     { path: 'order-tracking', component:OrderTrackingComponent},
-    { path: 'shop-detail', component:ShopDetailComponent},
     { path: 'sign-in', component:SignInComponent},
     { path: 'sign-up', component:SignUpComponent},
     { path: 'error', component:ErrorComponent},

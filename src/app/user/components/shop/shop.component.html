@@ -31,7 +31,7 @@
 <section class="shop_page pt_120 xs_pt_80">
     <div class="container">
         <div class="shop_page_header_area">
-            <div class="row">
+            <div class="row justify-content-between align-items-centers">
                 <div class="col-xl-3 col-lg-4 wow fadeInUp">
                     <div class="shop_header_search">
                         <form>
@@ -40,9 +40,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-xl-9 col-lg-8 wow fadeInUp">
+                <div class="col-xl-3 col-lg-8 wow fadeInUp">
                     <div class="shop_page_header">
-                        <p>Showing 1–6 of 10 results</p>
                         <div class="filter">
                             <p>Sort by:</p>
                             <select class="select_js">
@@ -69,244 +68,32 @@
                     <div class="shop_sidebar_category shop_sidebar_item">
                         <h3>Categories</h3>
                         <ul>
-                            <li><a href="shop.html">Vegetable <span>(08)</span></a></li>
-                            <li><a href="shop.html">Nuts & Dried Foods <span>(05)</span></a></li>
-                            <li><a href="shop.html">Milk & Dairy <span>(02)</span></a></li>
-                            <li><a href="shop.html">Halal Lamb & Goat <span>(19)</span></a></li>
-                            <li><a href="shop.html">Halal Deli <span>(25)</span></a></li>
-                            <li><a href="shop.html">Goat meat <span>(32)</span></a></li>
-                            <li><a href="shop.html">Fresh Halal Beef <span>(44)</span></a></li>
-                            <li><a href="shop.html">Fresh & Fruits <span>(16)</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="shop_sidebar_product">
-                        <h3>Featured Products</h3>
-                        <ul>
-                            <li>
-                                <div class="img">
-                                    <img src="assets/package-user/images/sidebar_product_1.jpg" alt="product" class="img-fluid w-100">
-                                </div>
-                                <div class="text">
-                                    <a href="shop_details.html">Porcelain Garlic</a>
-                                    <p>$15.00</p>
-                                    <span>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </span>
-                                </div>
+                            <li *ngFor="let category of categories">
+                              <a>{{ category.categoryName }}</a>
                             </li>
-                            <li>
-                                <div class="img">
-                                    <img src="assets/package-user/images/sidebar_product_2.jpg" alt="product" class="img-fluid w-100">
-                                </div>
-                                <div class="text">
-                                    <a href="shop_details.html">Vegetables Meat</a>
-                                    <p>$20.00</p>
-                                    <span>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img">
-                                    <img src="assets/package-user/images/sidebar_product_3.jpg" alt="product" class="img-fluid w-100">
-                                </div>
-                                <div class="text">
-                                    <a href="shop_details.html">Orange Slice Mix</a>
-                                    <p>$32.00</p>
-                                    <span>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
+                          </ul>
+                          
                     </div>
                 </div>
             </div>
             <div class="col-xl-9 order-lg-2 col-lg-8 xs_mb_50 shop_mb_margin">
                 <div class="row">
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
+
+                    <div *ngFor="let product of products" class="col-xl-4 col-sm-6 wow fadeInUp">
                         <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_1.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Lemon Meat Bone</a>
-                                <p>$20.00 <del>$25.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
+                          <div class="single_product_img">
+                            <img [src]="product.imageUrl || 'assets/default-image.jpg'" alt="Product" class="img_fluid w-100">
+                          </div>
+                          <div class="single_product_text">
+                            <a class="title" href="shop_details.html">{{ product.productName }}</a>
+                            <p>{{ product.salePrice | currency:'USD':'symbol':'1.2-2' }} <del>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</del></p>
+                            <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal" data-bs-target="#cart_popup_modal">
+                              <i class="far fa-shopping-basket"></i> Add To Cart
+                              <span></span>
+                            </a>
+                          </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_2.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Fresh Red Seedless</a>
-                                <p>$12.00 <del>$10.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_3.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Carrot Vegetables</a>
-                                <p>$33.00 <del>$28.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_4.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Bengal Beef Bone</a>
-                                <p>$12.00 <del>$10.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_5.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Carrot Vegetables</a>
-                                <p>$45.00 <del>$50.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_6.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Orange Slice Mix</a>
-                                <p>$29.00 <del>$35.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_7.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Beef Butter Cake</a>
-                                <p>$30.00 <del>$34.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_8.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Fresh Mango Fruits</a>
-                                <p>$22.00 <del>$26.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-sm-6 wow fadeInUp">
-                        <div class="single_product">
-                            <div class="single_product_img">
-                                <img src="assets/package-user/images/product_img_2.jpg" alt="Product" class="img_fluid w-100">
-                                <ul>
-                                    <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="single_product_text">
-                                <a class="title" href="shop_details.html">Fresh Red Seedless</a>
-                                <p>$12.00 <del>$10.00</del> </p>
-                                <a class="cart_btn" href="shop_details.html" data-bs-toggle="modal"
-                                    data-bs-target="#cart_popup_modal"><i class="far fa-shopping-basket"></i> Add To
-                                    Cart
-                                    <span></span></a>
-                            </div>
-                        </div>
-                    </div>
+                      </div>
                 </div>
                 <div class="row">
                     <div class="pagination mt_25 wow fadeInUp">
@@ -329,6 +116,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 
