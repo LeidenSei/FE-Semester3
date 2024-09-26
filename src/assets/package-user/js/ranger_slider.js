@@ -98,6 +98,29 @@ var FlatSliderObj;
 				this.$wert.html(ui.value + ' ' + this.options.einheit);
 				this._update_normal_handle($(ui.handle));
 			}
+
+			//send jquery ajax here
+			const apiUrl = 'http://localhost:7038/api/product/search';
+
+			const searchParams = {
+				toPrice: ui.values[1],
+				fromPrice: ui.values[0],
+			  };
+			
+            // Making a POST request
+            $.ajax({
+                url: apiUrl,
+                method: 'POST',
+                contentType: 'application/json', 
+                data: JSON.stringify(searchParams), 
+                success: function(data) {
+                   
+                 console.log('success')
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
 		},
 
 		_update_range_handle: function($handle) {

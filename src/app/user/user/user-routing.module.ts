@@ -29,7 +29,7 @@ const routes: Routes = [
     { path: '', component: HomeUserComponent },
     { path: 'shop', component: ShopComponent },
     { path: 'about', component: AboutUsComponent },
-    { path: 'shop-detail', component: ShopDetailComponent },
+    { path: 'shop-detail/:id', component: ShopDetailComponent },
     { path: 'privacy', component:PrivacyPolicyComponent},
     { path: 'order-tracking', component:OrderTrackingComponent},
     { path: 'sign-in', component:SignInComponent},
@@ -37,17 +37,17 @@ const routes: Routes = [
     { path: 'error', component:ErrorComponent},
     { path: 'faq', component:FaqComponent},
     { path: 'blogs', component:BlogsComponent},
-    { path: 'blog-detail', component:BlogsDetailComponent},
+    { path: 'blog-detail/:id', component:BlogsDetailComponent},
     { path: 'contact', component:ContactComponent},
     { path: 'dashboard', component:DashboardComponent},
     { path: 'cart', component:CartComponent},
     { path: 'checkout', component:CheckoutComponent},
     { path: 'order-tracking', component:OrderTrackingComponent},
-    { path: 'dashboard-info-edit', component:DashboardInfoEditComponent},
+    { path: 'dashboard-info-edit/:id', component:DashboardInfoEditComponent},
     { path: 'dashboard-order', component:DashboardOrderComponent},
     { path: 'dashboard-wishlist', component:DashboardWishlistComponent},
     { path: 'dashboard-change-password', component:DashboardChangePasswordComponent},
-    { path: 'dashboard-order-invoice', component:DashboardOrderInvoiceComponent}
+    { path: 'dashboard-order-invoice/:id', component:DashboardOrderInvoiceComponent}
   ]},
 ];
 

@@ -8,16 +8,15 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp"  *ngFor="let product of products">
-                <div class="single_product_2 single_product">
+        <div class="row" >
+            <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" *ngFor="let product of products"  >
+                <div class="single_product_2 single_product" id="{{product.id}}">
                     <div class="single_product_img">
-                        <img src="assets/package-user/images/home2_product_img_1.jpg" alt="Product" class="img_fluid w-100">
+                        <img [src]="product.imageUrl || 'assets/default-image.jpg'" alt="Product" class="img_fluid w-100">
                         <ul>
-                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#cart_popup_modal"><i
-                                        class="far fa-shopping-basket"></i></a></li>
-                            <li><a href="#"><i class="far fa-eye"></i></a></li>
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
+                            <!-- data-bs-toggle="modal" data-bs-target="#cart_popup_modal" -->
+                             <li ><a (click)="loadProduct(product.id)" data-bs-toggle="modal" data-bs-target="#cart_popup_modal"><i
+                                        class="far fa-shopping-basket" ></i></a></li> 
                         </ul>
                        
                     </div>
@@ -29,11 +28,81 @@
                             <i class="fas fa-star"></i>
                             <i class="far fa-star"></i>
                         </span>
-                        <a class="title" href="shop_details.html">Lemon Meat Bone</a>
-                        <p>${{product.price}} </p>
+                        <a class="title" [routerLink]="['/shop-detail',product.id]">{{product.productName}}</a>
+                        <p>{{product.price | currency: 'USD'}} </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="cart_popup_modal" *ngIf="show">
+    <div class="modal fade" id="cart_popup_modal"  tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6">
+                            <div class="cart_popup_modal_img">
+                                <img [src]="product?.imageUrl"  *ngIf="product?.image!='';else noImage"/>
+                                <ng-template #noImage>
+                                    No image
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="product_det_text">
+                                <h2 class="details_title">{{product?.productName}}</h2>
+                                <p class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    
+                                </p>
+                                <div *ngIf="product?.salePrice !== 0;else noSale" >
+                                    <p class="price">{{product?.salePrice | currency: 'USD'}} <del>{{product?.price  | currency: 'USD'}}</del></p>
+                                </div>
+                                <ng-template #noSale>
+                                    <p class="price">${{product?.price}}</p>
+                                  </ng-template>
+            
+                                <div class="details_short_description" *ngIf="product?.description!=null">
+                                    <h3>Description</h3>
+                                    <p>
+                                        {{product?.description}}
+                                    </p>
+                                </div>
+                                <div class="details_quentity_area">
+                                    <div class="button_area">
+                                        <button (click)="decrement()">-</button>
+                                        <input type="number" [(ngModel)]="quantity" (ngModelChange)="onQuantityChange($event)" min="1">
+                                        <button (click)="increment()">+</button>
+                                      </div>
+                                </div>
+                                <div class="details_cart_btn">
+                                    <a style="cursor: pointer;" class="common_btn" (click)="addToCart(product.id)"><i class="far fa-shopping-basket"></i> Add To Cart
+                                        <span></span></a>
+                     
+                                </div>
+                                <p class="category"><span>Category:</span> {{product?.category?.categoryName}}</p>
+                              
+                                <ul class="share">
+                                    <li>Share with friends:</li>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

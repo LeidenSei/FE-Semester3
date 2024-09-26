@@ -29,71 +29,27 @@
             <div class="col-lg-8 wow fadeInLeft">
                 <div class="blog_det_area">
                     <div class="blog_det_img">
-                        <img src="assets/package-user/images/blog_details_img.png" alt="blog images" class="img-fluid w-100">
+                        <img [src]="post?.imageUrl" alt="blog images" class="img-fluid w-100">
                     </div>
                     <div class="blog_det_text_header d-flex flex-wrap">
                         <ul class="left d-flex flex-wrap">
-                            <li><span>Grocery</span></li>
-                            <li><i class="far fa-user-circle"></i> Admin</li>
-                            <li><i class="far fa-calendar-alt"></i> 15 June 2023</li>
+                            <li><span>{{postCategoryName}}</span></li>
                         </ul>
                         <ul class="right d-flex flex-wrap">
-                            <li><i class="far fa-comment"></i> 5</li>
-                            <li><i class="far fa-heart"></i> 20</li>
-                            <li><i class="fas fa-share-alt"></i> 15</li>
+                            <li><i class="far fa-comment"></i> {{comments?.length}}</li>
                         </ul>
                     </div>
                     <div class="blog_det_text">
-                        <h2>The Fresh Connection Exploring the Link Between</h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in
-                            m, by injected humour, or randomised words which don't look even slightly believable. If
-                            you are going to use
-                            ge of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the
-                            middle of text There
-                            variations of passages of Lorem Ipsum available, but the majority have suffered
-                            alteration in some form, by
-                            humour, or randomised words which don't look even slightly believable.</p>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has been the indust
-                            standard dummy text ever since the 1500s.</p>
-
-                        <ul>
-                            <li>One popular belief, Lorem Ipsum is not simply random.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                            <li>To popular belief, Lorem Ipsum is not simply random.</li>
-                            <li>Contrary to popular belief, Lorem Ipsum is not simply random.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        </ul>
-
-                        <p>Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                            industry's is a l imped
-                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                            and scrambled it
-                            a type specimen book.</p>
-
-                        <div class="quot_text">
-                            <p>“There are many variations of passages of Lorem Ipsum available, but the majority
-                                have suffered alteration in some form, by variations of passages”</p>
-                        </div>
-
-                        <p>Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                            industry's is a l imped
-                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                            and scrambled it
-                            a type specimen book .</p>
-
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has been the indust
-                            standard dummy text ever since the 1500s.</p>
+                        <h2>{{post?.title}}</h2>
+                        <p>
+                            {{post?.description}}
+                        </p>
+                        <p>
+                            {{post?.content}}
+                        </p>
                     </div>
                     <div class="blog_tags_and_share d-flex flex-wrap">
-                        <ul class="left d-flex flex-wrap">
-                            <li><a href="#">Grocery Shop</a></li>
-                            <li><a href="#">Shop</a></li>
-                            <li><a href="#">Grocery</a></li>
-                        </ul>
+                        
                         <ul class="right d-flex flex-wrap">
                             <li>Share :</li>
                             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -102,45 +58,20 @@
                         </ul>
                     </div>
                     <div class="det_comment_area">
-                        <h3>Comments (12)</h3>
-                        <div class="single_comment">
+                        <h3>Comments {{comments?.length}}</h3>
+                        <div class="single_comment" *ngFor="let comment of comments">
                             <div class="img">
-                                <img src="assets/package-user/images/testimonial_img_1.jpg" alt="comment" class="img-fluid w-100">
+                                <img [src]="comment?.imageUrl || 'assets/package-user/images/testimonial_img_1.jpg' " alt="comment" class="img-fluid w-100">
                             </div>
                             <div class="text">
-                                <h4>Jackson Pot <span>May 8, 2023 at 6:49 am</span></h4>
-                                <p>Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est
-                                    quid
-                                    rem ipsum quia qued inventore veritatis et quasi architecto beatae vitae dicta.
+                                <h4>{{comment?.account?.userName}} <span>{{comment?.createdAt |  date: 'yyyy-MM-dd HH:mm:ss' }}</span></h4>
+                                <p>
+                                    {{comment?.content}}
                                 </p>
-                                <a href="#"><i class="fas fa-reply"></i> reply</a>
+                               
                             </div>
                         </div>
-                        <div class="single_comment reply">
-                            <div class="img">
-                                <img src="assets/package-user/images/testimonial_img_2.jpg" alt="comment" class="img-fluid w-100">
-                            </div>
-                            <div class="text">
-                                <h4>Indigo Violet <span>May 8, 2023 at 6:49 am</span></h4>
-                                <p>Lorem ipsum is simply free text used by copytyping refreshing. Neque porro
-                                    rem ipsum quia qued inventore veritatis.</p>
-                                <a href="#"><i class="fas fa-reply"></i> reply</a>
-                            </div>
-                        </div>
-                        <div class="single_comment">
-                            <div class="img">
-                                <img src="assets/package-user/images/testimonial_img_3.jpg" alt="comment" class="img-fluid w-100">
-                            </div>
-                            <div class="text">
-                                <h4>Inverness McKenzie <span>May 8, 2023 at 6:49 am</span></h4>
-                                <p>Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est
-                                    quid
-                                    rem ipsum quia qued inventore veritatis et quasi architecto beatae vitae dicta.
-                                </p>
-                                <a href="#"><i class="fas fa-reply"></i> reply</a>
-                            </div>
-                        </div>
-                        <div class="pagination mt_30">
+                        <!-- <div class="pagination mt_30">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -157,26 +88,20 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
+
                     <div class="det_comment_input">
                         <h3>Leave A Comments</h3>
-                        <form>
+                        <form [formGroup]="commentForm" (submit)="onSubmit()">
                             <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="review_input_box">
-                                        <input type="text" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="review_input_box">
-                                        <input type="email" placeholder="Email">
-                                    </div>
-                                </div>
                                 <div class="col-xl-12">
                                     <div class="review_input_box">
-                                        <textarea rows="5" placeholder="Write Comment...."></textarea>
+                                        <textarea rows="5" formControlName="content" placeholder="Write Comment...."></textarea>
                                     </div>
+                                    <div *ngIf="commentForm.get('content')?.invalid && commentForm.get('content')?.touched" class="text-danger mt-1">
+                                        Content is required.
+                                      </div>
                                     <button type="submit" class="common_btn">Submit Comment
                                         <span></span></button>
                                 </div>
@@ -187,82 +112,15 @@
             </div>
             <div class="col-lg-4">
                 <div class="blog_sidebar" id="sticky_sidebar">
-                    <div class="blog_sidebar_search">
-                        <div class="sedebar_content">
-                            <h3>Search Here</h3>
-                            <form>
-                                <input type="text" placeholder="Search...">
-                                <button><i class="far fa-search"></i></button>
-                            </form>
-                        </div>
-                    </div>
                     <div class="blog_sidebar_category shop_sidebar_category">
                         <div class="sedebar_content">
-                            <h3>Categories</h3>
+                            <h3>Post categories</h3>
                             <ul>
-                                <li><a href="shop.html">Vegetable <span>(08)</span></a></li>
-                                <li><a href="shop.html">Nuts & Dried Foods <span>(05)</span></a></li>
-                                <li><a href="shop.html">Milk & Dairy <span>(02)</span></a></li>
-                                <li><a href="shop.html">Halal Lamb & Goat <span>(19)</span></a></li>
-                                <li><a href="shop.html">Halal Deli <span>(25)</span></a></li>
-                                <li><a href="shop.html">Goat meat <span>(32)</span></a></li>
-                                <li><a href="shop.html">Fresh Halal Beef <span>(44)</span></a></li>
-                                <li><a href="shop.html">Fresh & Fruits <span>(16)</span></a></li>
+                                <li *ngFor="let postcategory of postCategories"><a href="#">{{postcategory?.postCategoryName}} </a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="blog_sidebar_product">
-                        <div class="sedebar_content">
-                            <h3>Recent Post</h3>
-                            <ul>
-                                <li>
-                                    <div class="img">
-                                        <img src="assets/package-user/images/sidebar_product_1.jpg" alt="product"
-                                            class="img-fluid w-100">
-                                    </div>
-                                    <div class="text">
-                                        <p><i class="far fa-calendar-alt"></i> 20 May 2023</p>
-                                        <a href="blogs_details.html">Freshly Served Exploring the World of Fresh</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="img">
-                                        <img src="assets/package-user/images/sidebar_product_2.jpg" alt="product"
-                                            class="img-fluid w-100">
-                                    </div>
-                                    <div class="text">
-                                        <p><i class="far fa-calendar-alt"></i> 20 May 2023</p>
-                                        <a href="blogs_details.html">Freshly Served Exploring the World of Fresh</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="img">
-                                        <img src="assets/package-user/images/sidebar_product_3.jpg" alt="product"
-                                            class="img-fluid w-100">
-                                    </div>
-                                    <div class="text">
-                                        <p><i class="far fa-calendar-alt"></i> 20 May 2023</p>
-                                        <a href="blogs_details.html">Freshly Served Exploring the World of Fresh</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="blog_sidebar_tags">
-                        <div class="sedebar_content">
-                            <h3>Popular Tags</h3>
-                            <ul>
-                                <li><a href="#">Grocery</a></li>
-                                <li><a href="#">Market</a></li>
-                                <li><a href="#">Shop</a></li>
-                                <li><a href="#">Fresh Food</a></li>
-                                <li><a href="#">Online Grocery</a></li>
-                                <li><a href="#">Food</a></li>
-                                <li><a href="#">Organic</a></li>
-                                <li><a href="#">Grocery</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                
                 </div>
             </div>
         </div>

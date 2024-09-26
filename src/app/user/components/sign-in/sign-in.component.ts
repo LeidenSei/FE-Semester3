@@ -38,7 +38,7 @@ export class SignInComponent {
             alert('Login failed');
           }
         },
-        (error) => {
+        (error:any) => {
           // alert('Error logging in: ' + error.message);
           alert('Login failed');
         }

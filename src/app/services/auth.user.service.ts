@@ -51,8 +51,33 @@ import { RegisterUser } from '../interfaces/register-user';
         return null;
       }
       const decodedToken: any = jwtDecode(token);
-      
       return decodedToken.name;
+    }
+    return null;
+  }
+
+  getEmailFromToken():string | null {
+    const token = this.getToken();
+    if(token){
+      if (this.isTokenExpired(token)) {
+        this.logout(); 
+        return null;
+      }
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.email;
+    }
+    return null;
+  }
+
+  getUserIdFromToken():string | null {
+    const token = this.getToken();
+    if(token){
+      if (this.isTokenExpired(token)) {
+        this.logout(); 
+        return null;
+      }
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.Id;
     }
 
     return null;

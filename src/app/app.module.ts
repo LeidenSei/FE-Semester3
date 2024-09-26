@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +50,8 @@ import { AddPostCategoryComponent } from './components/post-category/add-categor
 import { EditPostCategoryComponent } from './components/post-category/edit-category-post/edit-category-post.component';
 import { ListProductComponent } from './components/product/list-product/list-product.component';
 import { HomeDataComponent } from './user/components/home-data/home-data.component';
+import { DatePipe } from '@angular/common';
+
 
 
 @NgModule({
@@ -110,8 +112,10 @@ import { HomeDataComponent } from './user/components/home-data/home-data.compone
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    DatePipe
   ],
+ 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

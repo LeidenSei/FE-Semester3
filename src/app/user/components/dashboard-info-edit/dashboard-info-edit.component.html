@@ -42,9 +42,9 @@
                             <li><a class="active" href="/dashboard"><i class="fas fa-user"></i> Personal
                                     Info</a></li>
                             <li><a href="/dashboard-order"><i class="fas fa-shopping-basket"></i> Order</a></li>
-                            <li><a href="/dashboard-wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
+                            <!-- <li><a href="/dashboard-wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
                             <li><a href="/dashboard-change-password"><i class="fas fa-key"></i> Change
-                                    Password</a></li>
+                                    Password</a></li> -->
                             <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                                         class="fas fa-sign-out-alt"></i> Logout</a></li>
                         </ul>
@@ -55,41 +55,21 @@
                 <div class="dashboard_content">
                     <div class="dashboard_profile_info">
                         <div class="dashboard_profile_info_edit">
-                            <h2>Edit Information <a href="dashboard.html">Cancel</a></h2>
-                            <form class="info_edit_form booking_info_form">
+                            <h2>Edit Information <a routerLink="/dashboard">Cancel</a></h2>
+                            <form class="info_edit_form booking_info_form" [formGroup]="editForm" (submit)="onSubmit()">
                                 <div class="row">
                                     <div class="col-xl-6">
-                                        <input type="text" placeholder="Name">
+                                        <input type="text" formControlName="username"   placeholder="Name">
                                     </div>
                                     <div class="col-xl-6">
-                                        <input type="email" placeholder="Email">
+                                        <input type="email" readonly  formControlName="email" placeholder="Email">
                                     </div>
                                     <div class="col-xl-6">
-                                        <input type="text" placeholder="+880 Enter phone number">
+                                        <input type="text" formControlName="phone"  placeholder="+880 Enter phone number">
                                     </div>
-                                    <div class="col-xl-6">
-                                        <select class="select_2">
-                                            <option value="">select country</option>
-                                            <option value="">thailand</option>
-                                            <option value="">korea</option>
-                                            <option value="">singapore</option>
-                                            <option value="">london</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="select_2">
-                                            <option value="">City</option>
-                                            <option value="">thailand</option>
-                                            <option value="">korea</option>
-                                            <option value="">singapore</option>
-                                            <option value="">london</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input type="text" placeholder="Zip code">
-                                    </div>
+              
                                     <div class="col-xl-12">
-                                        <textarea rows="6"
+                                        <textarea rows="6" formControlName="address" 
                                             placeholder="441, 4th street, Washington DC, USA"></textarea>
                                         <button type="submit" class="common_btn">Save Profile
                                             <span></span></button>
