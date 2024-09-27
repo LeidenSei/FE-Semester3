@@ -39,21 +39,20 @@ export class PostService {
     });
   }
 
-  saveProduct(formData: FormData, id?: number): Observable<any> {
+  savePost(formData: FormData, id?: number): Observable<any> {
     if (id) {
-      return this.http.put<any>(`${this.apiUrl}/${id}`, formData, {
-        headers: this.getAuthHeaders()
-      });
+        return this.http.put<any>(`${this.apiUrl}/${id}`, formData, {
+            headers: this.getAuthHeaders()
+        });
     } else {
-      return this.http.post<any>(this.apiUrl, formData, {
-        headers: this.getAuthHeaders()
-      });
+        return this.http.post<any>(this.apiUrl, formData, {
+            headers: this.getAuthHeaders()
+        });
     }
   }
-
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`, {
-      headers: this.getAuthHeaders()
-    });
+  deletePost(id: number): Observable<any> {
+      return this.http.delete<any>(`${this.apiUrl}/${id}`, {
+          headers: this.getAuthHeaders()
+      });
   }
 }

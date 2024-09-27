@@ -116,6 +116,46 @@
                       </ul>
                     </div>
                   </li>
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav5">
+                      <span class="sub-item">Post</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav5">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/post']">
+                            <span class="sub-item">Post</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/post/add']">
+                            <span class="sub-item">Add Post</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav4">
+                      <span class="sub-item">Comments</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav4">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/comment']">
+                            <span class="sub-item">Comment</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/request-approve']">
+                            <span class="sub-item">Request Comments</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -201,41 +241,7 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#maps">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Maps</p>
-                <span class="caret"></span>
-              </a>
-              <div class="collapse" id="maps">
-                <ul class="nav nav-collapse">
-                  <li>
-                    <a href="maps/googlemaps.html">
-                      <span class="sub-item">Google Maps</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="maps/jsvectormap.html">
-                      <span class="sub-item">Jsvectormap</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="widgets.html">
-                <i class="fas fa-desktop"></i>
-                <p>Widgets</p>
-                <span class="badge badge-success">4</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../../documentation/index.html">
-                <i class="fas fa-file"></i>
-                <p>Documentation</p>
-                <span class="badge badge-secondary">1</span>
-              </a>
-            </li>
+          
   
           </ul>
         </div>

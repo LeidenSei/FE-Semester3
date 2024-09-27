@@ -72,7 +72,7 @@ export class ShopComponent implements OnInit {
       this.products = response.data.map((product: Product) => {
         return {
           ...product,
-          imageUrl: `https://localhost:7038/images/${product.image}`
+          imageUrl: `http://localhost:7038/images/${product.image}`
         };
       });
       this.totalRecords = response.totalRecords;
@@ -185,7 +185,8 @@ loadCategories() {
     //check xem login chưa
    if(!this.auth.isLoggedIn()){
     alert('You are not loging!!')
-    this.router.navigate(['/sign-in'])
+    //this.router.navigate(['/sign-in'])
+    return;
    }
    const request = {
     userId: this.auth.getUserIdFromToken(),

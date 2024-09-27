@@ -40,9 +40,11 @@ export class CheckoutComponent implements OnInit{
   }
 
   onSumit() {
-   
-    if(this.carts.length<=0){
+    this.loadCartByUser();
+    if(this.carts.length==0){
+      alert("No product in th cart");
       this.router.navigate(['/shop']);
+      return;
     }
     const userId = this.authService.getUserIdFromToken();
     const total = this.totalAmount;
@@ -60,7 +62,9 @@ export class CheckoutComponent implements OnInit{
         if (typeof window !== 'undefined') {
           localStorage.removeItem('cart')
       } 
+       alert("Create order successfully");
         this.router.navigate(['/']);
+        this.carts = [];
       },
       error => {
         alert("Create order fails");
