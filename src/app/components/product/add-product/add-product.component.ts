@@ -5,6 +5,7 @@ import { AttributeOptionService } from '../../../services/attribute-option.servi
 import { AttributeService } from '../../../services/attribute.service';
 import { ProductService } from '../../../services/product.service';
 import { AttributeOption } from '../../../interfaces/attribute-option';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-add-product',
@@ -28,6 +29,7 @@ export class AddProductComponent implements OnInit {
     private attributeService: AttributeService,
     private categoryService: CategoryService,
     private attributeOptionService: AttributeOptionService,
+    private commonService:CommonService
   ) {
     this.productForm = this.fb.group({
       ProductName: ['', Validators.required],
@@ -57,7 +59,7 @@ export class AddProductComponent implements OnInit {
         this.productForm.controls['Description'].setValue(data);
       });
     } else {
-      console.error('CKEditor chưa được tải đúng cách hoặc không tìm thấy phần tử.');
+    
     }
   }
   get attributeArray(): FormArray {
@@ -71,7 +73,7 @@ export class AddProductComponent implements OnInit {
     });
   
     attributeGroup.get('AttributeId')?.valueChanges.subscribe(attributeId => {
-      if (attributeId) { // Kiểm tra nếu attributeId không phải là null
+      if (attributeId) {
         const index = this.attributeArray.length - 1;
         this.loadAttributeOptions(attributeId, index);
       }
@@ -83,28 +85,30 @@ export class AddProductComponent implements OnInit {
   onImageSelect(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files[0]) {
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imagePreview = e.target?.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  onAlbumSelect(event: Event): void {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files) {
-      this.albumPreviews = [];
-      Array.from(fileInput.files).forEach(file => {
+        this.selectedImage = fileInput.files[0]; // Gán giá trị cho selectedImage
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.albumPreviews.push(e.target?.result as string);
+            this.imagePreview = e.target?.result;
         };
-        reader.readAsDataURL(file);
-      });
+        reader.readAsDataURL(this.selectedImage);
     }
+}
+
+
+onAlbumSelect(event: Event): void {
+  const fileInput = event.target as HTMLInputElement;
+  if (fileInput.files) {
+      this.selectedAlbum = Array.from(fileInput.files); // Gán giá trị cho selectedAlbum
+      this.albumPreviews = [];
+      this.selectedAlbum.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              this.albumPreviews.push(e.target?.result as string);
+          };
+          reader.readAsDataURL(file);
+      });
   }
+}
 
   removeAttribute(index: number) {
     this.attributeArray.removeAt(index);
@@ -135,7 +139,7 @@ export class AddProductComponent implements OnInit {
         this.attributeOptions[index] = options;
       },
       error => {
-        console.error('Có lỗi xảy ra khi tải tùy chọn thuộc tính:', error);
+        console.error(error);
       }
     );
   }
@@ -163,12 +167,14 @@ export class AddProductComponent implements OnInit {
     formData.append('Attributes', JSON.stringify(attributes));
   
     try {
-      const response = await this.productService.saveProduct(formData).toPromise();
-      alert('Product added successfully');
+      console.log(this.productForm.value);
+      
+      await this.productService.saveProduct(formData).toPromise();
+      this.commonService.showAutoCloseAlert("success","Success","Add product successfully");
+      this.productForm.reset();
     } catch (error) {
-      console.error('Error adding product', error);
+      this.commonService.showAutoCloseAlert("error","Error","Add product failed");
     }
   }
-  
   
 }

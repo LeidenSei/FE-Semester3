@@ -36,7 +36,6 @@ export class HomeDataComponent implements OnInit  {
 
   ngOnInit():void {
     this.loadProducts();
-   
   }
 
 
@@ -93,6 +92,7 @@ export class HomeDataComponent implements OnInit  {
     }, error => {
       console.error('Error loading products', error);
     });
+    this.loadProducts();
   }
 
   increment(): void {
@@ -135,6 +135,7 @@ export class HomeDataComponent implements OnInit  {
     (error:any) => {
       console.error('Error add product', error);  
     });
+   
   }
 
 }

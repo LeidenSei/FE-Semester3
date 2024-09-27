@@ -24,7 +24,7 @@ export class EditCategoryComponent {
   ) {
     this.editCategoryForm = this.fb.group({
       categoryName: ['', [Validators.required]],
-      active: ['1', [Validators.required]]
+      active: ['', [Validators.required]]
     });
   }
   ngOnInit(): void {
@@ -67,7 +67,9 @@ export class EditCategoryComponent {
         this.categoryService.getCategoryById(this.categoryId).subscribe(
           existingCategory => {
             const isNameChanged = existingCategory.categoryName !== updatedCategory.categoryName;
+            const isActiveChanged = existingCategory.active !== updatedCategory.active; // Kiểm tra trạng thái active
   
+            // Chỉ kiểm tra sự tồn tại của tên nếu tên đã thay đổi
             if (isNameChanged) {
               this.categoryService.checkNameExists(updatedCategory.categoryName).subscribe(
                 exists => {
@@ -81,8 +83,12 @@ export class EditCategoryComponent {
                   console.error('Error checking category name', error);
                 }
               );
-            } else {
+            } else if (isActiveChanged) {
+              // Nếu chỉ có trạng thái active thay đổi, vẫn cập nhật
               this.updateCategory();
+            } else {
+              // Nếu không có gì thay đổi, không cần thực hiện cập nhật
+              alert('No changes detected. The category will not be updated.');
             }
           },
           error => {
@@ -93,7 +99,10 @@ export class EditCategoryComponent {
     }
   }
   
+  
   private updateCategory(): void {
+    console.log(this.editCategoryForm.value);
+    
     this.categoryService.updateCategory(this.editCategoryForm.value, this.categoryId).subscribe(
       response => {
         console.log('Category updated:', response);

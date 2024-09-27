@@ -17,9 +17,8 @@ export class AddPostCategoryComponent {
     private fb: FormBuilder, 
     private postCategoryService: PostCategoryService, 
     private router: Router,
-    private postCategoryComponent: PostCategoryComponent // Đảm bảo bạn có khai báo trong module
+    private postCategoryComponent: PostCategoryComponent
   ) {
-    // Khởi tạo form
     this.addPostCategoryForm = this.fb.group({
       postCategoryName: ['', [Validators.required]],
       active: ['1', [Validators.required]],

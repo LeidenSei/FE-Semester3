@@ -17,7 +17,10 @@ export class OrderService {
     const token = this.authService.getToken();
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
-
+  searchOrders(searchParams: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<any>(`${this.apiUrl}/search`, searchParams, { headers });
+  }
   createOrder(request: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create`, request, {
       headers: this.getAuthHeaders()

@@ -13,9 +13,7 @@ export class CategoryService {
   }
   private apiUrl = 'http://localhost:7038/api/category';
   constructor(private http: HttpClient, private authService:AuthService) {}
-  getAllCategories(): Observable<any> {
-    return this.http.get<any>(this.apiUrl+'/all');
-  }
+
   private getAuthHeaders() {
     const token = this.authService.getToken(); 
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -23,6 +21,9 @@ export class CategoryService {
   searchCategories(searchParams: any): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post<any>(`${this.apiUrl}/search`, searchParams, { headers });
+  }
+  getAllCategories(): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/all');
   }
   addCategory(category: Category): Observable<Category> {
     const headers = this.getAuthHeaders();

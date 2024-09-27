@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../interfaces/product';
 import { ProductService } from '../../../services/product.service';
 import { SearchParams } from '../../../services/search-params';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-list-product',
@@ -18,7 +19,7 @@ export class ListProductComponent implements OnInit{
 
   Math = Math;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private commonService:CommonService) {}
 
   ngOnInit() {
     this.loadProducts();
@@ -34,7 +35,7 @@ export class ListProductComponent implements OnInit{
       sortDir: '',
       toPrice: 0,
       fromPrice: 0,
-      categoryId: '', // Sửa nếu cần
+      categoryId: '',
       optionIds: []
     };
   
@@ -63,11 +64,13 @@ export class ListProductComponent implements OnInit{
     this.loadProducts();
   }
 
-  deleteProduct(id: number): void {
-    if (confirm('Are you sure you want to delete this product?')) {
+  async deleteProduct(id: number): Promise<void> {
+    if (
+      await this.commonService.showConfirmation("Cofirm", "Are you sure you want to delete this product?","Ok", "Cancel")
+    ) {
       this.productService.deleteProduct(id).subscribe(
         response => {
-          console.log('Product deleted:', response);
+          this.commonService.showAutoCloseAlert("success","Success","Delete product successfully");
           this.loadProducts();
         },
         error => {

@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../Models/Login';
 import { log } from 'console';
+import { CommonService } from '../services/common.service';
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.component.html',  
@@ -11,7 +12,7 @@ import { log } from 'console';
 export class LoginAdminComponent {
   LoginModel:Login = new Login();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private commonService:CommonService) {}
 
   async onLogin() {
     await this.authService.logout(); 
@@ -20,8 +21,9 @@ export class LoginAdminComponent {
         if (response.success) {
           this.authService.saveTokenUser(response.token);
           this.router.navigate(['/admin']);
+          this.commonService.showAutoCloseAlert("success", "Login successfully", "Welcome back admin");
         } else {
-          alert('Login failed');
+          this.commonService.showAlert("error", "Login", "Login admin failed");
         }
       },
       (error) => {

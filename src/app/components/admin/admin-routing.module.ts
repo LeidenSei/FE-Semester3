@@ -1,6 +1,6 @@
 
 import { EditOptionProductComponent } from './../option-product/edit-option-product/edit-option-product.component';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterviewAdminComponent } from '../masterview-admin/masterview-admin.component';
 import { CategoryComponent } from '../category/category.component';
@@ -27,6 +27,9 @@ import { PostComponent } from '../post/post.component';
 import { ListPostComponent } from '../post/list-post/list-post.component';
 import { AddPostComponent } from '../post/add-post/add-post.component';
 import { EditPostComponent } from '../post/edit-post/edit-post.component';
+import { OrdersComponent } from '../orders/orders.component';
+import path from 'path';
+import { ListOrderComponent } from '../orders/list-order/list-order.component';
 
 const routes: Routes = [
   { path: '', component: MasterviewAdminComponent, children: [
@@ -64,7 +67,10 @@ const routes: Routes = [
         { path: 'add', component: AddPostComponent },
         { path: 'edit/:id', component: EditPostComponent }
       ]
-    }
+    },
+    { path: 'orders', component:OrdersComponent, children: [
+      { path:'', component: ListOrderComponent }
+    ]}
   ]},
 ];
 

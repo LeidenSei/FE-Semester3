@@ -59,6 +59,9 @@ import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/post/add-post/add-post.component';
 import { EditPostComponent } from './components/post/edit-post/edit-post.component';
 import { ListPostComponent } from './components/post/list-post/list-post.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { UsersComponent } from './components/users/users.component';
+import { ListOrderComponent } from './components/orders/list-order/list-order.component';
 
 
 
@@ -118,7 +121,10 @@ import { ListPostComponent } from './components/post/list-post/list-post.compone
     PostComponent,
     AddPostComponent,
     EditPostComponent,
-    ListPostComponent
+    ListPostComponent,
+    OrdersComponent,
+    UsersComponent,
+    ListOrderComponent
   ],
   imports: [
     BrowserModule,

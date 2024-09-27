@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -21,14 +22,15 @@ export class EditProductComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService:CategoryService,
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private commonService:CommonService
   ) {}
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get('id');
     this.initForm();
     this.loadProduct(productId);
-    this.loadCategories(); // Assuming categories are fetched here
+    this.loadCategories();
   }
 
   initForm() {
@@ -97,10 +99,10 @@ export class EditProductComponent implements OnInit {
 
   onAlbumSelect(event: any) {
     const files = event.target.files as FileList;
-    this.selectedAlbumFiles = []; // Reset the array
+    this.selectedAlbumFiles = [];
     if (files && files.length) {
         Array.from(files).forEach((file: File) => {
-            this.selectedAlbumFiles.push(file); // Store files in the array
+            this.selectedAlbumFiles.push(file);
             const reader = new FileReader();
             reader.onload = (e: any) => this.albumPreviews.push(e.target.result);
             reader.readAsDataURL(file);
@@ -132,12 +134,12 @@ export class EditProductComponent implements OnInit {
       console.log(formData);
       
       this.productService.saveProduct(formData, this.product.id).subscribe(response => {
-        alert("Update product successfully")
+        this.commonService.showAutoCloseAlert("success","Success","Update product successfully");
       }, error => {
         console.error('Error saving product', error);
       });
     } else {
-      console.error('Form is invalid');
+      this.commonService.showAutoCloseAlert("error","Error","Update product failed");
     }
   }
   
