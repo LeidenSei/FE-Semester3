@@ -116,6 +116,27 @@
                       </ul>
                     </div>
                   </li>
+
+                  <li>
+                    <a data-bs-toggle="collapse" href="#subnav4">
+                      <span class="sub-item">Comments</span>
+                      <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subnav4">
+                      <ul class="nav nav-collapse subnav">
+                        <li>
+                          <a [routerLink]="['/admin/comment']">
+                            <span class="sub-item">Comment</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a [routerLink]="['/admin/request-approve']">
+                            <span class="sub-item">Request Comments</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </li>

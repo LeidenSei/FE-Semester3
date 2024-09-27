@@ -112,10 +112,10 @@ export class HomeDataComponent implements OnInit  {
   addToCart(productId1:string) {
     //check xem login chưa
    if(!this.auth.isLoggedIn()){
-    this.show=false;
-    this.router.navigate(['/sign-in'])
+    // this.show=false;
+    //this.router.navigate(['/sign-in'])
     alert('You are not loging!!')
-    return;
+    //return;
    }
    const request = {
     userId: this.auth.getUserIdFromToken(),

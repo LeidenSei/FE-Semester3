@@ -51,6 +51,11 @@ import { EditPostCategoryComponent } from './components/post-category/edit-categ
 import { ListProductComponent } from './components/product/list-product/list-product.component';
 import { HomeDataComponent } from './user/components/home-data/home-data.component';
 import { DatePipe } from '@angular/common';
+import { CommentsComponent } from './components/comments/comments.component';
+import { CommentDetailComponent } from './components/comments/comment-detail/comment-detail.component';
+import { RequestApproveComponent } from './components/comments/request-approve/request-approve.component';
+import { RequestDetailComponent } from './components/comments/request-approve/request-detail/request-detail.component';
+import { PostComponent } from './components/post/post.component';
 
 
 
@@ -102,7 +107,12 @@ import { DatePipe } from '@angular/common';
     AddPostCategoryComponent,
     EditPostCategoryComponent,
     ListProductComponent,
-    HomeDataComponent
+    HomeDataComponent,
+    CommentsComponent,
+    CommentDetailComponent,
+    RequestApproveComponent,
+    RequestDetailComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

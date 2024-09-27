@@ -185,7 +185,8 @@ loadCategories() {
     //check xem login chưa
    if(!this.auth.isLoggedIn()){
     alert('You are not loging!!')
-    this.router.navigate(['/sign-in'])
+    //this.router.navigate(['/sign-in'])
+    return;
    }
    const request = {
     userId: this.auth.getUserIdFromToken(),

@@ -19,6 +19,10 @@ import { EditPostCategoryComponent } from '../post-category/edit-category-post/e
 import { ListProductComponent } from '../product/list-product/list-product.component';
 import { AddProductComponent } from '../product/add-product/add-product.component';
 import { EditProductComponent } from '../product/edit-product/edit-product.component';
+import { CommentsComponent } from '../comments/comments.component';
+import { CommentDetailComponent } from '../comments/comment-detail/comment-detail.component';
+import { RequestApproveComponent } from '../comments/request-approve/request-approve.component';
+import { RequestDetailComponent } from '../comments/request-approve/request-detail/request-detail.component';
 
 const routes: Routes = [
   { path: '', component: MasterviewAdminComponent, children: [
@@ -43,7 +47,13 @@ const routes: Routes = [
     { path: 'category-post', component:PostCategoryComponent, children: [
       { path: '', component:AddPostCategoryComponent },
       { path: 'edit/:id', component:EditPostCategoryComponent }
-    ]}
+    ]},
+    { path: 'comment', component:CommentsComponent, children: [
+      
+    ]},
+    { path: 'comment/detail/:id', component:CommentDetailComponent },
+    { path: 'request-approve', component:RequestApproveComponent },
+    { path: 'request-approve/detail/:id', component:RequestDetailComponent }
   ]},
 ];
 
