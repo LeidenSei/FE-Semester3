@@ -56,6 +56,9 @@ import { CommentDetailComponent } from './components/comments/comment-detail/com
 import { RequestApproveComponent } from './components/comments/request-approve/request-approve.component';
 import { RequestDetailComponent } from './components/comments/request-approve/request-detail/request-detail.component';
 import { PostComponent } from './components/post/post.component';
+import { AddPostComponent } from './components/post/add-post/add-post.component';
+import { EditPostComponent } from './components/post/edit-post/edit-post.component';
+import { ListPostComponent } from './components/post/list-post/list-post.component';
 
 
 
@@ -112,7 +115,10 @@ import { PostComponent } from './components/post/post.component';
     CommentDetailComponent,
     RequestApproveComponent,
     RequestDetailComponent,
-    PostComponent
+    PostComponent,
+    AddPostComponent,
+    EditPostComponent,
+    ListPostComponent
   ],
   imports: [
     BrowserModule,
