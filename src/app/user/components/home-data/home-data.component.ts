@@ -55,8 +55,12 @@ export class HomeDataComponent implements OnInit  {
     };
 
     this.productService.searchProducts(searchParams).subscribe(response => {
-      console.log(response)
-      this.products = response.data;
+      this.products = response.data.map((product: Product) => {
+        return {
+          ...product,
+          imageUrl: `http://localhost:7038/images/${product.image}`
+        };
+      });;
     this.totalRecords = response.totalRecords;
     }, error => {
       console.error('Error loading products', error);

@@ -50,7 +50,7 @@ export class HomeUserComponent {
       this.posts = response.data.map((post: Post) => {
         return {
           ...post,
-          imageUrl: `https://localhost:7038/images/${post.image}`
+          imageUrl: `http://localhost:7038/images/${post.image}`
         };
       });
       console.log(response)
