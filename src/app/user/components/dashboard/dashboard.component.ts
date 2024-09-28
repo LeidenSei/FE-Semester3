@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthUserService } from '../../../services/auth.user.service';
 import { Router } from '@angular/router';
@@ -13,7 +14,8 @@ export class DashboardComponent implements OnInit{
   constructor(
     private authUserService: AuthUserService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private CommonService:CommonService
   ) {
 
   }
@@ -38,7 +40,7 @@ export class DashboardComponent implements OnInit{
 
   handleLogout():void {
     this.authUserService.logout();
-    alert("Logout successfully")
+    this.CommonService.showAutoCloseAlert("success","Success","Log out successfully");
     this.router.navigate(['/sign-in'])
     this.authUserService.setCurrentUser(null)
 

@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component } from '@angular/core';
 import { CommentService } from '../../../services/comment.service';
 import { DatePipe } from '@angular/common';
@@ -22,7 +23,7 @@ export class RequestApproveComponent {
 
   Math = Math;
 
-  constructor(private requestService: RequestApproveService, private datePipe: DatePipe) {}
+  constructor(private requestService: RequestApproveService, private datePipe: DatePipe, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadRequests();
@@ -72,12 +73,14 @@ export class RequestApproveComponent {
     this.loadRequests();
   }
 
-  approveRequestComment(id: number): void {
-    if (confirm('Are you sure you want to approve this comment?')) {
+  async approveRequestComment(id: number): Promise<void> {
+    if (
+      await this.CommonService.showConfirmation("warning", "Warning", "Oke", "Cancel")
+    ) {
       this.requestService.approveRequest(id).subscribe(
         response => {
           this.loadRequests();
-          alert('Comment approved successfully!!')
+          this.CommonService.showAutoCloseAlert("success","Success","Approved Comment");
         },
         error => {
           console.error('Error approving comment:', error);
@@ -86,12 +89,14 @@ export class RequestApproveComponent {
     }
   }
 
-  rejectRequestComment(id: number): void {
-    if (confirm('Are you sure you want to reject this comment?')) {
+  async rejectRequestComment(id: number): Promise<void> {
+    if (
+      await this.CommonService.showConfirmation("warning", "Warning", "Ok", "Cancel")
+    ) {
       this.requestService.rejectRequest(id).subscribe(
         response => {
           this.loadRequests();
-          alert('Comment rejected successfully!!')
+          this.CommonService.showAutoCloseAlert("success","Success","Reject comment successfully");
         },
         error => {
           console.error('Error rejected comment:', error);

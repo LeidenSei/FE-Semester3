@@ -1,3 +1,4 @@
+import { CommonService } from './../../services/common.service';
 import { Component } from '@angular/core';
 import { PostCategoryService } from '../../services/post-category.service';
 import { PostCategory } from '../../interfaces/post-category';
@@ -16,7 +17,7 @@ export class PostCategoryComponent {
 
   Math = Math;
 
-  constructor(private postCategoryService: PostCategoryService) {}
+  constructor(private postCategoryService: PostCategoryService, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadPostCategories();
@@ -56,16 +57,12 @@ export class PostCategoryComponent {
     this.loadPostCategories();
   }
 
-  deletePostCategory(id: number): void {
-    this.postCategoryService.checkPostCategoryHasPosts(id).subscribe(
-      hasPosts => {
-        if (hasPosts) {
-          alert('Cannot delete post category because it contains posts.');
-        } else {
-          if (confirm('Are you sure you want to delete this post category?')) {
+  async deletePostCategory(id: number): Promise<void> {
+    
+          if (await this.CommonService.showConfirmation("warning", "Warning", "Oke", "Cancel")) {
             this.postCategoryService.deletePostCategory(id).subscribe(
               response => {
-                console.log('Post category deleted:', response);
+                this.CommonService.showAutoCloseAlert("success","Success","Delete post Successfully");
                 this.loadPostCategories();
               },
               error => {
@@ -74,10 +71,4 @@ export class PostCategoryComponent {
             );
           }
         }
-      },
-      error => {
-        console.error('Error checking post category for posts:', error);
       }
-    );
-  }
-}

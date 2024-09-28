@@ -1,3 +1,4 @@
+import { CommonService } from './../../services/common.service';
 import { Component } from '@angular/core';
 import { AttributeOptionService } from '../../services/attribute-option.service';
 
@@ -16,7 +17,7 @@ export class OptionProductComponent {
 
   Math = Math;
 
-  constructor(private attributeOptionService: AttributeOptionService) {}
+  constructor(private attributeOptionService: AttributeOptionService, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadOptions();
@@ -52,11 +53,13 @@ export class OptionProductComponent {
     this.loadOptions();
   }
 
-  deleteOption(id: number): void {
-    if (confirm('Are you sure you want to delete this option?')) {
+  async deleteOption(id: number): Promise<void> {
+    if (
+      await this.CommonService.showConfirmation("warning", "Warning", "Oke", "Cancel")
+    ) {
       this.attributeOptionService.deleteAttributeOption(id).subscribe(
         response => {
-          console.log('Option deleted:', response);
+          this.CommonService.showAutoCloseAlert("success","Success","Attribute option deleted");
           this.loadOptions();
         },
         error => {

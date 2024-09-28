@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthUserService } from '../../../services/auth.user.service';
@@ -14,7 +15,8 @@ export class SignUpComponent {
   constructor(
     private fb: FormBuilder, 
     private authUserService:AuthUserService,
-    private router: Router
+    private router: Router,
+    private CommonService:CommonService
   ) {
     // // Khởi tạo form
     this.signUpModuleForm = this.fb.group({
@@ -50,12 +52,12 @@ export class SignUpComponent {
         response => {
           console.log('Register added:', response);
           this.signUpModuleForm.reset();
-          alert('Đăng ký thành công')
+          this.CommonService.showAutoCloseAlert("success","Success","Sign up successfully");
           this.router.navigate(['/sign-in']);
         },
         error => {
           console.error('Error adding user:', error);
-          alert(this.convertErrorToString(error?.error?.errors))
+          this.CommonService.showAutoCloseAlert("error","error",error);
         }
       );
     }

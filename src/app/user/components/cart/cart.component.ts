@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthUserService } from '../../../services/auth.user.service';
 import { Router } from '@angular/router';
@@ -15,7 +16,8 @@ export class CartComponent implements OnInit{
   constructor(
     private authUser:AuthUserService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private CommonService:CommonService
   ) {
 
   }
@@ -56,7 +58,7 @@ export class CartComponent implements OnInit{
         }
         this.cartService.deleteProductFromCart(request).subscribe(response => {      
           this.loadCartByUser();
-          alert('Deleted successfully')
+          this.CommonService.showAutoCloseAlert("success","Success","Delete successfully");
 
         }, error => {
           console.error('Error loading products', error);
@@ -110,7 +112,7 @@ export class CartComponent implements OnInit{
         }
         this.cartService.clearCart(request).subscribe(response => {      
           this.loadCartByUser();
-          alert('Clear successfully')
+          this.CommonService.showAutoCloseAlert("success","Success","Cart has been cleared");
         }, error => {
           console.error('Error clear cart', error);
         });

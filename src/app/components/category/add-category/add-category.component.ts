@@ -3,6 +3,7 @@ import { CategoryService } from './../../../services/category.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryComponent } from '../category.component';
+import { CommonService } from '../../../services/common.service';
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -16,7 +17,8 @@ export class AddCategoryComponent {
     private fb: FormBuilder, 
     private categoryService: CategoryService, 
     private router: Router,
-    private categoryComponent:CategoryComponent
+    private categoryComponent:CategoryComponent,
+    private commonService:CommonService
   ) {
     this.addCategoryForm = this.fb.group({
       categoryName: ['', [Validators.required]],
@@ -31,7 +33,7 @@ export class AddCategoryComponent {
       this.categoryService.checkNameExists(categoryName).subscribe(
         exists => {
           if (exists) {
-            alert('Category name already exists. Please choose a different name.');
+              this.commonService.showAlert("warning","Warning", "Category name already exists. Please choose a different name.")
             this.isSubmitting = false;
           } else {
             this.isSubmitting = true;
@@ -46,6 +48,7 @@ export class AddCategoryComponent {
                 this.router.navigate(['/admin/category']).then(() => {
                   this.categoryComponent.loadCategories();
                 });
+                this.commonService.showAutoCloseAlert("success", "Success", "Add category successfully");
               },
               error => {
                 console.error('Error adding category:', error);

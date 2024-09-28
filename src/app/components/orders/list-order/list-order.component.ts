@@ -1,5 +1,8 @@
+import { CommonService } from './../../../services/common.service';
+import { CommentService } from './../../../services/comment.service';
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-list-order',
@@ -16,7 +19,7 @@ export class ListOrderComponent implements OnInit {
 
   Math = Math;
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadOrders();
@@ -46,7 +49,23 @@ export class ListOrderComponent implements OnInit {
       this.loadOrders();
     }
   }
+  onOrderStatusChange(orderId: number, updatedStatus: string): void {
+    console.log('Changing status for order:', orderId, 'to:', updatedStatus);
+    this.orderService.changeOrderStatus(orderId, { NewStatus: updatedStatus }).subscribe(
+        response => {
+            this.CommonService.showAutoCloseAlert("success", "Success", "Order status updated successfully");
+            this.loadOrders();
+        },
+        error => {
+            console.error('Error status:', error.status);
+            console.error('Error response:', error.error);
+            this.CommonService.showAutoCloseAlert("error", "Error", error.error || "Failed to update order status");
+        }
+    );
+}
 
+
+  
   onSearch() {
     this.currentPage = 1;
     this.loadOrders();

@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -18,7 +19,8 @@ export class EditAttributeProductComponent implements OnInit {
     private attributeService: AttributeService,
     private route: ActivatedRoute,
     private router: Router,
-    private attributeProductComponent: AttributeProductComponent
+    private attributeProductComponent: AttributeProductComponent,
+    private CommonService:CommonService
   ) {
     this.editAttributeForm = this.fb.group({
       attributeCode: ['', [Validators.required]],
@@ -72,9 +74,10 @@ export class EditAttributeProductComponent implements OnInit {
         this.router.navigate(['/admin/attribute']).then(() => {
           this.attributeProductComponent.loadAttributes();
         });
+        this.CommonService.showAutoCloseAlert("success", "Success", "Edit attribute successfully");
       },
       error => {
-        console.error('Error updating attribute', error);
+        this.CommonService.showAutoCloseAlert("error", "Error", "Edit attribute failed");
       }
     );
   }

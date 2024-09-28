@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { CategoryComponent } from './../category.component';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +21,8 @@ export class EditCategoryComponent {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private categoryComponent:CategoryComponent
+    private categoryComponent:CategoryComponent,
+    private CommonService:CommonService
   ) {
     this.editCategoryForm = this.fb.group({
       categoryName: ['', [Validators.required]],
@@ -67,14 +69,13 @@ export class EditCategoryComponent {
         this.categoryService.getCategoryById(this.categoryId).subscribe(
           existingCategory => {
             const isNameChanged = existingCategory.categoryName !== updatedCategory.categoryName;
-            const isActiveChanged = existingCategory.active !== updatedCategory.active; // Kiểm tra trạng thái active
+            const isActiveChanged = existingCategory.active !== updatedCategory.active; 
   
-            // Chỉ kiểm tra sự tồn tại của tên nếu tên đã thay đổi
             if (isNameChanged) {
               this.categoryService.checkNameExists(updatedCategory.categoryName).subscribe(
                 exists => {
                   if (exists) {
-                    alert('Category name already exists. Please choose a different name.');
+                    this.CommonService.showAutoCloseAlert("warning","Warning","Category name has already exist");
                   } else {
                     this.updateCategory();
                   }
@@ -84,10 +85,9 @@ export class EditCategoryComponent {
                 }
               );
             } else if (isActiveChanged) {
-              // Nếu chỉ có trạng thái active thay đổi, vẫn cập nhật
               this.updateCategory();
+              this.CommonService.showAutoCloseAlert("success","Success","Edit category successfully");
             } else {
-              // Nếu không có gì thay đổi, không cần thực hiện cập nhật
               alert('No changes detected. The category will not be updated.');
             }
           },
@@ -111,7 +111,7 @@ export class EditCategoryComponent {
         });
       },
       error => {
-        console.error('Error updating category', error);
+        this.CommonService.showAutoCloseAlert("error","Error","Edit category faileds");
       }
     );
   }

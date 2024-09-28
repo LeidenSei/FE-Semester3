@@ -6,7 +6,7 @@ import { AttributeService } from '../../../services/attribute.service';
 import { ProductService } from '../../../services/product.service';
 import { AttributeOption } from '../../../interfaces/attribute-option';
 import { CommonService } from '../../../services/common.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -29,7 +29,8 @@ export class AddProductComponent implements OnInit {
     private attributeService: AttributeService,
     private categoryService: CategoryService,
     private attributeOptionService: AttributeOptionService,
-    private commonService:CommonService
+    private commonService:CommonService,
+    private Router:Router
   ) {
     this.productForm = this.fb.group({
       ProductName: ['', Validators.required],
@@ -172,6 +173,7 @@ onAlbumSelect(event: Event): void {
       await this.productService.saveProduct(formData).toPromise();
       this.commonService.showAutoCloseAlert("success","Success","Add product successfully");
       this.productForm.reset();
+      this.Router.navigate(['/admin/product']);
     } catch (error) {
       this.commonService.showAutoCloseAlert("error","Error","Add product failed");
     }

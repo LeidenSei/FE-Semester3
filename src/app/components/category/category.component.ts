@@ -1,3 +1,4 @@
+import { CommonService } from './../../services/common.service';
 import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 
@@ -16,7 +17,7 @@ export class CategoryComponent {
 
   Math = Math;
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadCategories();
@@ -51,14 +52,16 @@ export class CategoryComponent {
   }
   deleteCategory(id: number): void {
     this.categoryService.checkCategoryHasProducts(id).subscribe(
-      hasProducts => {
+      async hasProducts => {
         if (hasProducts) {
-          alert('Cannot delete category because it contains products.');
+          this.CommonService.showAutoCloseAlert("warning","Warning","Cannot delete because it contains products");
         } else {
-          if (confirm('Are you sure you want to delete this category?')) {
+          if (
+            await this.CommonService.showConfirmation("warning", "Warning", "Oke", "Cancel")
+          ) {
             this.categoryService.deleteCategory(id).subscribe(
               response => {
-                console.log('Category deleted:', response);
+                this.CommonService.showAutoCloseAlert("success","Success","Delete category successfully");
                 this.loadCategories();
               },
               error => {

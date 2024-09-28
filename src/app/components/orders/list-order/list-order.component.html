@@ -1,25 +1,4 @@
 <div class="page-inner">
-    <div class="page-header">
-      <div class="mb-3 ml-5">
-        <input
-          type="text"
-          [(ngModel)]="searchKeyword"
-          placeholder="Search orders"
-          class="form-control"
-        />
-      </div>
-      
-      <div class="mb-3 ml-5">
-        <select [(ngModel)]="statusFilter" class="form-select">
-          <option value="">All statuses</option>
-          <option value="Ordered">Ordered</option>
-          <option value="Shipped">Shipped</option>
-          <option value="Delivered">Delivered</option>
-        </select>
-      </div>
-      
-      <button (click)="onSearch()" class="btn btn-primary mb-3">Search</button>
-    </div>
   
     <div class="row justify-content-between">
       <div class="col-md-12">
@@ -49,19 +28,29 @@
                     <td>{{ order.userName }}</td>
                     <td>{{ order.email }}</td>
                     <td>{{ order.orderDate | date:'short' }}</td>
-                    <td>{{ order.status }}</td>
-                    <!-- <td>
+                    <td>
+                      <select [(ngModel)]="order.status" (change)="onOrderStatusChange(order.orderId, order.status)" class="form-select">
+                        <option value="Ordered">Ordered</option>
+                        <option value="Shipping">Shipping</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    </td>                    
+                    <td>
                       <div class="form-button-action">
-                        <a [routerLink]="['/admin/order/edit', order.orderId]" class="btn btn-link btn-primary btn-lg"
-                          data-bs-toggle="tooltip" title="Edit Order">
-                          <i class="fa fa-edit"></i>
-                        </a>
-                        <button type="button" (click)="deleteOrder(order.orderId)" class="btn btn-link btn-danger"
+                        <a 
+                        class="btn btn-link btn-primary btn-lg"
+                        [routerLink]="['/admin/orders/order-detail', order.orderId]" 
+                        data-bs-toggle="tooltip" 
+                        title="View order details">
+                          Detail
+                      </a>
+                      
+                        <!-- <button type="button" (click)="deleteOrder(order.orderId)" class="btn btn-link btn-danger"
                           data-bs-toggle="tooltip" title="Remove Order">
                           <i class="fa fa-times"></i>
-                        </button>
+                        </button> -->
                       </div>
-                    </td> -->
+                    </td>
                   </tr>
                 </tbody>
               </table>

@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
         return true;
       }
     }
-
       this.commonService.showAutoCloseAlert("warning","Notice","You must login to continue")
       return false;
   }

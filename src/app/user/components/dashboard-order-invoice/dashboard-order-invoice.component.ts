@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthUserService } from '../../../services/auth.user.service';
@@ -21,7 +22,8 @@ export class DashboardOrderInvoiceComponent implements OnInit {
     private accountService: AccountService,
     private orderService: OrderService,
     private navigate: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private CommonService:CommonService
   ) {
     this.editForm = this.fb.group({
       username: [this.user?.userName],
@@ -63,7 +65,7 @@ export class DashboardOrderInvoiceComponent implements OnInit {
 
   handleLogout():void {
     this.authUserService.logout();
-    alert("Logout successfully")
+    this.CommonService.showAutoCloseAlert("success","Success","Logout successfully");
     this.router.navigate(['/sign-in'])
     this.authUserService.setCurrentUser(null)
 
@@ -74,7 +76,7 @@ export class DashboardOrderInvoiceComponent implements OnInit {
     const data = this.editForm.value;
     this.accountService.saveAccount(data, id).subscribe(response => {
      console.log(response);
-     alert("Update successfully")
+     this.CommonService.showAutoCloseAlert("success","Success","Update successfully");
      this.router.navigate(['/dashboard'])
     }, error => {
       console.error('Error loading posts', error);

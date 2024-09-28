@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +20,8 @@ export class EditPostCategoryComponent {
     private postCategoryService: PostCategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private postCategoryComponent: PostCategoryComponent
+    private postCategoryComponent: PostCategoryComponent,
+    private CommonService:CommonService
   ) {
     this.editPostCategoryForm = this.fb.group({
       postCategoryName: ['', [Validators.required]],
@@ -63,6 +65,7 @@ export class EditPostCategoryComponent {
     if (this.editPostCategoryForm.valid) {
       const updatedPostCategory: PostCategory = this.editPostCategoryForm.value;
       this.updatePostCategory(updatedPostCategory);
+      this.CommonService.showAutoCloseAlert('success',"Success","Edit post category successfully");
     } else {
       console.log('Form is invalid');
     }

@@ -62,6 +62,7 @@ import { ListPostComponent } from './components/post/list-post/list-post.compone
 import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
 import { ListOrderComponent } from './components/orders/list-order/list-order.component';
+import { OrderdetailComponent } from './components/orders/orderdetail/orderdetail.component';
 
 
 
@@ -124,7 +125,8 @@ import { ListOrderComponent } from './components/orders/list-order/list-order.co
     ListPostComponent,
     OrdersComponent,
     UsersComponent,
-    ListOrderComponent
+    ListOrderComponent,
+    OrderdetailComponent
   ],
   imports: [
     BrowserModule,

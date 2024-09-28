@@ -30,6 +30,7 @@ import { EditPostComponent } from '../post/edit-post/edit-post.component';
 import { OrdersComponent } from '../orders/orders.component';
 import path from 'path';
 import { ListOrderComponent } from '../orders/list-order/list-order.component';
+import { OrderdetailComponent } from '../orders/orderdetail/orderdetail.component';
 
 const routes: Routes = [
   { path: '', component: MasterviewAdminComponent, children: [
@@ -69,7 +70,8 @@ const routes: Routes = [
       ]
     },
     { path: 'orders', component:OrdersComponent, children: [
-      { path:'', component: ListOrderComponent }
+      { path:'', component: ListOrderComponent },
+      { path: "order-detail/:id", component:OrderdetailComponent}
     ]}
   ]},
 ];

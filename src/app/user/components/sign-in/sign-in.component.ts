@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthUserService } from '../../../services/auth.user.service';
 import { Router } from '@angular/router';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,6 +16,7 @@ export class SignInComponent {
     private fb: FormBuilder, 
     private authUserService:AuthUserService,
     private router: Router,
+    private CommonService:CommonService
   ) {
     // // Khởi tạo form
     this.signInModuleForm = this.fb.group({
@@ -32,15 +34,15 @@ export class SignInComponent {
           if (response.success) {
             this.authUserService.saveTokenUser(response.token);
             this.authUserService.setCurrentUser(this.authUserService.getUsernameFromToken());
-            alert('Login successfully');
+            this.CommonService.showAutoCloseAlert("success","Success","Sign in successfully");
             this.router.navigate(['/']);
           } else {
-            alert('Login failed');
+            this.CommonService.showAutoCloseAlert("error","error","Sign in failed");
           }
         },
         (error:any) => {
           // alert('Error logging in: ' + error.message);
-          alert('Login failed');
+          this.CommonService.showAutoCloseAlert("error","error","Sign in failed");
         }
       );
 

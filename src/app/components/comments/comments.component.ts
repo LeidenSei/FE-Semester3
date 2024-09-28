@@ -1,3 +1,4 @@
+import { CommonService } from './../../services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import { SearchCommentParams } from '../../services/search-post-params';
@@ -21,7 +22,7 @@ export class CommentsComponent implements OnInit{
 
   Math = Math;
 
-  constructor(private commentService: CommentService, private datePipe: DatePipe) {}
+  constructor(private commentService: CommentService, private datePipe: DatePipe, private CommonService:CommonService) {}
 
   ngOnInit() {
     this.loadComments();
@@ -71,13 +72,15 @@ export class CommentsComponent implements OnInit{
     this.loadComments();
   }
 
-  deleteComment(id: number): void {
-    if (confirm('Are you sure you want to delete this comment?')) {
+  async deleteComment(id: number): Promise<void> {
+    if (
+      await this.CommonService.showConfirmation("warning", "Are you sure to continue?", "Oke", "Cancel")
+    ) {
       this.commentService.deleteComment(id).subscribe(
         response => {
           console.log('Comment deleted:', response);
           this.loadComments();
-          alert('Comment deleted successfully!!')
+          this.CommonService.showAutoCloseAlert("success","Success","Delete product Successfully");
         },
         error => {
           console.error('Error deleting comment:', error);

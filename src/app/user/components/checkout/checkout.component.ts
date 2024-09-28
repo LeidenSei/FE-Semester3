@@ -1,9 +1,11 @@
+import { CommentService } from './../../../services/comment.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthUserService } from '../../../services/auth.user.service';
 import { OrderService } from '../../../services/order.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CartService } from '../../../services/cart.service';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +23,8 @@ export class CheckoutComponent implements OnInit{
     private fb: FormBuilder,
     private orderService: OrderService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private CommonService:CommonService
   ) {
     this.orderForm = this.fb.group({
       address: [''],
@@ -42,7 +45,7 @@ export class CheckoutComponent implements OnInit{
   onSumit() {
     this.loadCartByUser();
     if(this.carts.length==0){
-      alert("No product in th cart");
+      this.CommonService.showAutoCloseAlert("warning","Warning","No product in your cart");
       this.router.navigate(['/shop']);
       return;
     }
@@ -62,7 +65,7 @@ export class CheckoutComponent implements OnInit{
         if (typeof window !== 'undefined') {
           localStorage.removeItem('cart')
       } 
-       alert("Create order successfully");
+       this.CommonService.showAutoCloseAlert("success","success","Create order successfully");
         this.router.navigate(['/']);
         this.carts = [];
       },

@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component, OnDestroy, OnInit, Output, Type } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { SearchParams } from '../../../services/search-params';
@@ -24,14 +25,15 @@ export class HomeDataComponent implements OnInit  {
   isShowModel:boolean =false;
   product: any;
   albumPreviews: string[] = []; 
-  quantity: number = 1; // Default quantity
+  quantity: number = 1;
   show:boolean=true;
-  selectedProduct: any; // Selected product for the modal
+  selectedProduct: any;
 
   constructor(private productService: ProductService, private auth: AuthUserService,
 
     private router:Router,
-    private cartService:CartService
+    private cartService:CartService,
+    private CommonService:CommonService
   ) {}
 
   ngOnInit():void {
@@ -49,7 +51,7 @@ export class HomeDataComponent implements OnInit  {
       sortDir: '',
       toPrice: 0,
       fromPrice: 0,
-      categoryId: '', // Sửa nếu cần
+      categoryId: '',
       optionIds: []
     };
 
@@ -87,7 +89,7 @@ export class HomeDataComponent implements OnInit  {
       } else {
         this.albumPreviews = [];
       }
-      this.selectedProduct = this.product; // Set the selected product
+      this.selectedProduct = this.product; 
 
     }, error => {
       console.error('Error loading products', error);
@@ -118,7 +120,7 @@ export class HomeDataComponent implements OnInit  {
    if(!this.auth.isLoggedIn()){
     // this.show=false;
     //this.router.navigate(['/sign-in'])
-    alert('You are not loging!!')
+    this.CommonService.showAutoCloseAlert("warning","Warning","You are not loging!!");
     //return;
    }
    const request = {
@@ -130,7 +132,8 @@ export class HomeDataComponent implements OnInit  {
 
     // tạo request 
     this.cartService.addToCart(request).subscribe(response => {
-      alert('Added successfully');
+      this.loadProducts();
+      this.CommonService.showAutoCloseAlert("success","Success","Added successfully");
     }, 
     (error:any) => {
       console.error('Error add product', error);  

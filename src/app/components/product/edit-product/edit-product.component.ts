@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
 import { CommonService } from '../../../services/common.service';
-
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -23,7 +22,8 @@ export class EditProductComponent implements OnInit {
     private categoryService:CategoryService,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private commonService:CommonService
+    private commonService:CommonService,
+    private Router:Router
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,34 @@ export class EditProductComponent implements OnInit {
       Active: [''],
     });
   }
-
+  ngAfterViewInit(): void {
+    const descriptionElement = document.getElementById('description');
+    if (descriptionElement && typeof (window as any)['CKEDITOR'] !== 'undefined') {
+      const editor = (window as any)['CKEDITOR'].replace(descriptionElement);
+      editor.on('instanceReady', () => {
+        console.log("CKEditor is ready.");
+  
+        // Lắng nghe sự kiện keyup để cập nhật form khi có thay đổi
+        editor.on('contentDom', () => {
+          editor.document.on('keyup', () => {
+            const data = editor.getData();
+            console.log("CKEditor Data on keyup:", data);
+            this.productForm.controls['Description'].setValue(data);
+          });
+        });
+  
+        // Thêm sự kiện change để theo dõi bất kỳ thay đổi nào
+        editor.on('change', () => {
+          const data = editor.getData();
+          console.log("CKEditor Data on change:", data);
+          this.productForm.controls['Description'].setValue(data);
+        });
+      });
+    }
+  }
+  
+  
+  
   loadProduct(id: string | null) {
     if (id) {
       this.productService.getProductById(id).subscribe((product) => {
@@ -111,36 +138,49 @@ export class EditProductComponent implements OnInit {
 }
 
 
-  onSubmit() {
-    if (this.productForm.valid) {
-      const formData = new FormData();
-      formData.append('ProductName', this.productForm.get('ProductName')?.value);
-      formData.append('Price', this.productForm.get('Price')?.value);
-      formData.append('SalePrice', this.productForm.get('SalePrice')?.value);
-      formData.append('CategoryId', this.productForm.get('CategoryId')?.value);
-      formData.append('Description', this.productForm.get('Description')?.value);
-      formData.append('Active', this.productForm.get('Active')?.value);
-  
-      if (this.selectedImage) {
-        formData.append('Image', this.selectedImage);
-      }
-  
-      if (this.selectedAlbumFiles.length > 0) {
-        this.selectedAlbumFiles.forEach((file: File) => {
-            formData.append('Album', file);
-        });
-    }
-    
-      console.log(formData);
-      
-      this.productService.saveProduct(formData, this.product.id).subscribe(response => {
-        this.commonService.showAutoCloseAlert("success","Success","Update product successfully");
-      }, error => {
-        console.error('Error saving product', error);
-      });
-    } else {
-      this.commonService.showAutoCloseAlert("error","Error","Update product failed");
-    }
+updateEditorContent() {
+  const editor = (window as any)['CKEDITOR'].instances['description']; 
+  if (editor) {
+    const data = editor.getData();
+    console.log("CKEditor Data on submit:", data); 
+    this.productForm.controls['Description'].setValue(data);
   }
+}
+
+onSubmit() {
+  
+  this.updateEditorContent();
+
+  if (this.productForm.valid) {
+    const formData = new FormData();
+    formData.append('ProductName', this.productForm.get('ProductName')?.value);
+    formData.append('Price', this.productForm.get('Price')?.value);
+    formData.append('SalePrice', this.productForm.get('SalePrice')?.value);
+    formData.append('CategoryId', this.productForm.get('CategoryId')?.value);
+    formData.append('Description', this.productForm.get('Description')?.value);  
+    formData.append('Active', this.productForm.get('Active')?.value);
+
+    if (this.selectedImage) {
+      formData.append('Image', this.selectedImage);
+    }
+
+    if (this.selectedAlbumFiles.length > 0) {
+      this.selectedAlbumFiles.forEach((file: File) => {
+        formData.append('Album', file);
+      });
+    }
+
+    console.log("Form Data before submit:", formData);  
+
+    this.productService.saveProduct(formData, this.product.id).subscribe(response => {
+      this.Router.navigate(['/admin/product']);
+      this.commonService.showAutoCloseAlert("success","Success","Update product successfully");
+    }, error => {
+      console.error('Error saving product', error);
+    });
+  } else {
+    this.commonService.showAutoCloseAlert("error","Error","Update product failed");
+  }
+}
   
 }

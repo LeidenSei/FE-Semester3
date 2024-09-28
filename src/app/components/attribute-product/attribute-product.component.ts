@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AttributeService } from '../../services/attribute.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-attribute-product',
@@ -16,7 +17,7 @@ export class AttributeProductComponent {
 
   Math = Math;
 
-  constructor(private attributeService: AttributeService) {}
+  constructor(private attributeService: AttributeService, private commonService:CommonService) {}
 
   ngOnInit() {
     this.loadAttributes();
@@ -52,12 +53,14 @@ export class AttributeProductComponent {
     this.loadAttributes();
   }
 
-  deleteAttribute(id: number): void {
-    if (confirm('Are you sure you want to delete this attribute?')) {
+  async deleteAttribute(id: number): Promise<void> {
+    if (
+      await this.commonService.showConfirmation("Warning", "Are you sure to countinue?", "Oke", "Cancel")
+    ) {
       this.attributeService.deleteAttribute(id).subscribe(
         response => {
-          console.log('Attribute deleted:', response);
           this.loadAttributes();
+          this.commonService.showAutoCloseAlert("success","Success", "Delete attribute successfuly");
         },
         error => {
           console.error('Error deleting attribute:', error);

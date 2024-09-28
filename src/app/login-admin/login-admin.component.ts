@@ -27,7 +27,7 @@ export class LoginAdminComponent {
         }
       },
       (error) => {
-        alert('Error logging in: ' + error.message);
+        this.commonService.showAlert("error", "Login", "Login admin failed");
       }
     );
   }

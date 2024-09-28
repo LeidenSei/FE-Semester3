@@ -1,3 +1,4 @@
+import { CommonService } from './../../../services/common.service';
 import { Component } from '@angular/core';
 import { AuthUserService } from '../../../services/auth.user.service';
 import { AccountService } from '../../../services/account.service';
@@ -16,7 +17,8 @@ export class DashboardInfoEditComponent {
     private fb: FormBuilder,
     private authUserService: AuthUserService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private CommonService:CommonService
   ) {
     this.editForm = this.fb.group({
       username: [this.user?.userName],
@@ -53,7 +55,7 @@ export class DashboardInfoEditComponent {
 
   handleLogout():void {
     this.authUserService.logout();
-    alert("Logout successfully")
+    this.CommonService.showAutoCloseAlert("success","Success","Logout successfully");
     this.router.navigate(['/sign-in'])
     this.authUserService.setCurrentUser(null)
 
@@ -64,7 +66,7 @@ export class DashboardInfoEditComponent {
     const data = this.editForm.value;
     this.accountService.saveAccount(data, id).subscribe(response => {
      console.log(response);
-     alert("Update successfully")
+     this.CommonService.showAutoCloseAlert("success","Success","Update successfully");
      this.router.navigate(['/dashboard'])
     }, error => {
       console.error('Error loading posts', error);

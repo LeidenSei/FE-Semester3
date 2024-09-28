@@ -17,6 +17,14 @@ export class OrderService {
     const token = this.authService.getToken();
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
+// OrderService
+changeOrderStatus(id: number, orderChange: { NewStatus: string }): Observable<any> {
+  const headers = this.getAuthHeaders();
+  return this.http.put<any>(`${this.apiUrl}/change-status/${id}`, orderChange, { headers });
+}
+
+
+
   searchOrders(searchParams: any): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post<any>(`${this.apiUrl}/search`, searchParams, { headers });
@@ -31,6 +39,9 @@ export class OrderService {
       headers: this.getAuthHeaders()
     });
   }
-
+  getOrderDetail(orderId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/detail/${orderId}`, { headers });
+  }
 
 }
